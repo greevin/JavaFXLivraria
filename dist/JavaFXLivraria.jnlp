@@ -11,7 +11,7 @@
   </resources>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="JavaFXLivraria.jar" size="129353" download="eager" />
+    <jar href="JavaFXLivraria.jar" size="21012" download="eager" />
   </resources>
 <security>
   <all-permissions/>
@@ -19,6 +19,6 @@
   <applet-desc  width="800" height="600" main-class="com.javafx.main.NoJavaFXFallback"  name="JavaFXLivraria" >
     <param name="requiredFXVersion" value="2.2+"/>
   </applet-desc>
-  <jfx:javafx-desc  width="800" height="600" main-class="javafxlivraria.JavaFXLivraria"  name="JavaFXLivraria" />
+  <jfx:javafx-desc  width="800" height="600" main-class="javafxlivraria.LivrariaPrincipal"  name="JavaFXLivraria" />
   <update check="always"/>
 </jnlp>
