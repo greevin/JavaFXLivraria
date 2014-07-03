@@ -6,16 +6,16 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafxlivraria.LivrariaController">
    <children>
       <SplitPane dividerPositions="0.3514056224899598" layoutX="107.0" orientation="VERTICAL" prefHeight="700.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                <children>
-                  <TableView layoutX="56.0" layoutY="-29.0" prefHeight="171.0" prefWidth="598.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <TableView fx:id="itemTable" layoutX="56.0" layoutY="-29.0" prefHeight="171.0" prefWidth="598.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <columns>
-                      <TableColumn prefWidth="75.0" text="Tipo" />
-                      <TableColumn prefWidth="522.0" text="Título" />
+                      <TableColumn fx:id="nomeColumn" prefWidth="75.0" text="Tipo" />
+                      <TableColumn fx:id="editoraColumn" prefWidth="522.0" text="Título" />
                     </columns>
                      <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -44,15 +44,15 @@
                     </rowConstraints>
                      <children>
                         <Label text="Nome:" />
-                        <Label text="Label" GridPane.columnIndex="1" />
+                        <Label fx:id="nomeLabel" text="Label" GridPane.columnIndex="1" />
                         <Label text="Editora:" GridPane.rowIndex="1" />
-                        <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Label fx:id="editoraLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <Label text="Edição:" GridPane.rowIndex="2" />
                         <Label text="Idioma:" GridPane.rowIndex="3" />
                         <Label text="Data de Publicação:" GridPane.rowIndex="4" />
                         <Label text="Número de Páginas:" GridPane.rowIndex="5" />
                         <Label text="Código de Barras:" GridPane.rowIndex="6" />
-                        <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <Label fx:id="edicaoLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                         <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                         <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                         <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="5" />

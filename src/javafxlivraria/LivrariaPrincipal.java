@@ -16,6 +16,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafxlivraria.model.ItemFX;
+import javafxlivraria.model.LivroFX;
 
 
 /**
@@ -26,13 +27,16 @@ public class LivrariaPrincipal extends Application {
     
     private Stage primaryStage;
     private BorderPane rootLayout;
-    private ObservableList<ItemFX> itemData = FXCollections.observableArrayList();
+    //private ObservableList<ItemFX> itemData = FXCollections.observableArrayList();
+    private ObservableList<LivroFX> itemData = FXCollections.observableArrayList();
     
     public LivrariaPrincipal(){
-        itemData.add(new ItemFX("teste", "teste"));
+        itemData.add(new LivroFX("Livro", "Livraria da Rua", "Capa Dura"));
+        itemData.add(new LivroFX("teste2", "teste2", "Capa Comum"));
+        itemData.add(new LivroFX("teste3", "teste3", "Capa Comum"));
     }
     
-    public ObservableList<ItemFX> getItemData() {
+    public ObservableList<LivroFX> getItemData() {
         return itemData;
     }
 
@@ -67,7 +71,7 @@ public class LivrariaPrincipal extends Application {
 
     /**
      * Shows the person overview inside the root layout.
-     */
+     
     public void showLivraria() {
         try {
             // Load person overview.
@@ -80,7 +84,26 @@ public class LivrariaPrincipal extends Application {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }*/
+    
+    public void showLivraria() {
+    try {
+        // Load person overview.
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(LivrariaPrincipal.class.getResource("Livraria.fxml"));
+        AnchorPane personOverview = (AnchorPane) loader.load();
+
+        // Set person overview into the center of root layout.
+        rootLayout.setCenter(personOverview);
+
+        // Give the controller access to the main app.
+        LivrariaController controller = loader.getController();
+        controller.setMainApp(this);
+
+    } catch (IOException e) {
+        e.printStackTrace();
     }
+}
 
     /**
      * Returns the main stage.

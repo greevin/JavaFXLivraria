@@ -7,8 +7,8 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
-public class ItemFX {
-    
+public class ItemFX{
+
     private StringProperty nome;
     private StringProperty editora;
     private IntegerProperty edicao;
@@ -19,7 +19,7 @@ public class ItemFX {
     private DoubleProperty preco;
     private IntegerProperty quantidade;
 
-    public ItemFX(String nome, String editora){
+    public ItemFX(String nome, String editora) {
         this.nome = new SimpleStringProperty(nome);
         this.editora = new SimpleStringProperty(editora);
         this.edicao = new SimpleIntegerProperty(2302);
@@ -44,8 +44,8 @@ public class ItemFX {
     public void setNome(String nome) {
         this.nome.set(nome);
     }
-    
-       public StringProperty nomeProperty() {
+
+    public StringProperty nomeProperty() {
         return nome;
     }
 
@@ -62,23 +62,27 @@ public class ItemFX {
     public void setEditora(String editora) {
         this.editora.set(editora);
     }
-    
-       public StringProperty editoraProperty() {
+
+    public StringProperty editoraProperty() {
         return editora;
     }
 
     /**
      * @return the edicao
      */
-    public IntegerProperty getEdicao() {
-        return edicao;
+    public int getEdicao() {
+        return edicao.get();
     }
 
     /**
      * @param edicao the edicao to set
      */
-    public void setEdicao(IntegerProperty edicao) {
-        this.edicao = edicao;
+    public void setEdicao(int edicao) {
+        this.edicao.set(edicao);
+    }
+
+    public IntegerProperty edicaoProperty() {
+        return edicao;
     }
 
     /**
@@ -164,6 +168,5 @@ public class ItemFX {
     public void setQuantidade(IntegerProperty quantidade) {
         this.quantidade = quantidade;
     }
-    
-    
+
 }
