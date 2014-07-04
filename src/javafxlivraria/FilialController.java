@@ -1,34 +1,35 @@
-package javafxlivraria;
-
-import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafxlivraria.model.ItemFX;
-import javafxlivraria.model.LivroFX;
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 
+package javafxlivraria;
+
+import javafx.fxml.FXML;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafxlivraria.model.FilialFX;
+import javafxlivraria.model.ItemFX;
+import javafxlivraria.model.LivroFX;
+
 /**
  *
  * @author casn
  */
-public class LivrariaController {
+public class FilialController {
     @FXML
-    private TableView<LivroFX> itemTable;
+    private TableView<FilialFX> itemTable;
     @FXML
-    private TableColumn<ItemFX, String> nomeColumn;
+    private TableColumn<FilialFX, String> nomeColumn;
     @FXML
-    private TableColumn<ItemFX, String> editoraColumn;
+    private TableColumn<FilialFX, String> editoraColumn;
 
     @FXML
-    private Label nomeLabel;
+    private Label razaoSocialLabel;
     @FXML
-    private Label editoraLabel;
+    private Label enderecoLabel;
     @FXML
     private Label edicaoLabel;
     @FXML
@@ -45,7 +46,7 @@ public class LivrariaController {
      * The constructor.
      * The constructor is called before the initialize() method.
      */
-    public LivrariaController() {
+    public FilialController() {
     }
 
     /**
@@ -56,9 +57,9 @@ public class LivrariaController {
     private void initialize() {
         // Initialize the person table with the two columns.
     nomeColumn.setCellValueFactory(
-            cellData -> cellData.getValue().nomeProperty());
-    editoraColumn.setCellValueFactory(
-            cellData -> cellData.getValue().editoraProperty());
+            cellData -> cellData.getValue().razaoSocialProperty());
+    //editoraColumn.setCellValueFactory(
+      //      cellData -> cellData.getValue().);
 
     // Clear person details.
     showPersonDetails(null);
@@ -68,12 +69,12 @@ public class LivrariaController {
             (observable, oldValue, newValue) -> showPersonDetails(newValue));
     }
 
-    private void showPersonDetails(ItemFX person) {
+    private void showPersonDetails(FilialFX person) {
     if (person != null) {
         // Fill the labels with info from the person object.
-        nomeLabel.setText(person.getNome());
-        editoraLabel.setText(person.getEditora());
-        edicaoLabel.setText(Integer.toString(person.getEdicao()));
+        razaoSocialLabel.setText(person.getRazaoSocial());
+        enderecoLabel.setText(person.getEnderecoFisico().getCidade());
+        //edicaoLabel.setText(Integer.toString(person.getEdicao()));
         //postalCodeLabel.setText(Integer.toString(person.getPostalCode()));
         //cityLabel.setText(person.getCity());
 
@@ -81,9 +82,9 @@ public class LivrariaController {
         // birthdayLabel.setText(...);
     } else {
         // Person is null, remove all the text.
-        nomeLabel.setText("");
-        editoraLabel.setText("");
-        edicaoLabel.setText("");
+        razaoSocialLabel.setText("");
+        enderecoLabel.setText("");
+        //edicaoLabel.setText("");
         //postalCodeLabel.setText("");
         //cityLabel.setText("");
         //birthdayLabel.setText("");
@@ -98,6 +99,7 @@ public class LivrariaController {
         this.mainApp = mainApp;
 
         // Add observable list data to the table
-        itemTable.setItems(mainApp.getItemData());
+        //itemTable.setItems(mainApp.getFilialData());
     }
+    
 }

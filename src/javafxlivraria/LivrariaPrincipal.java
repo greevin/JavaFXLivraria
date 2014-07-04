@@ -15,6 +15,9 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import javafxlivraria.model.Endereco;
+import javafxlivraria.model.FilialFX;
+import javafxlivraria.model.Gerente;
 import javafxlivraria.model.ItemFX;
 import javafxlivraria.model.LivroFX;
 
@@ -29,16 +32,34 @@ public class LivrariaPrincipal extends Application {
     private BorderPane rootLayout;
     //private ObservableList<ItemFX> itemData = FXCollections.observableArrayList();
     private ObservableList<LivroFX> itemData = FXCollections.observableArrayList();
+    //private ObservableList<FilialFX> filialData = FXCollections.observableArrayList();
     
     public LivrariaPrincipal(){
         itemData.add(new LivroFX("Livro", "Livraria da Rua", "Capa Dura"));
         itemData.add(new LivroFX("teste2", "teste2", "Capa Comum"));
         itemData.add(new LivroFX("teste3", "teste3", "Capa Comum"));
+        itemData.add(new LivroFX("teste4", "teste4", "Capa Comum"));
+        itemData.add(new LivroFX("teste5", "teste5", "Capa Comum"));
+        
+        /*Endereco[] enderecosFilial = new Endereco[4];
+
+        enderecosFilial[0] = new Endereco("Rua", "dos Jornalistas", "2050", "Nenhum", "Belo Horizonte", "MG");
+        enderecosFilial[1] = new Endereco("Avenida", "João Braga Costa Nunes", "1000", "Loja 3", "Poços de Caldas", "MG");
+        enderecosFilial[2] = new Endereco("Rua", "Primeiro de Janeiro", "250", "Nenhum", "São Bernardo do Campo", "SP");
+        enderecosFilial[3] = new Endereco("Avenida", "Ipanema", "3242", "Casa", "Rio de Janeiro", "RJ");
+
+        Gerente gerente1 = new Gerente("Carlos Eduardo", "13/01/1986", "06/05/2003", 450, enderecosFilial[0]);
+        
+        filialData.add(new FilialFX("teste", enderecosFilial[0], gerente1));*/
     }
     
     public ObservableList<LivroFX> getItemData() {
         return itemData;
     }
+    
+    /*public ObservableList<FilialFX> getFilialData() {
+        return filialData;
+    }*/
 
     @Override
     public void start(Stage primaryStage) {

@@ -8,9 +8,9 @@
 
 <AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafxlivraria.LivrariaController">
    <children>
-      <SplitPane dividerPositions="0.2349137931034483" layoutX="107.0" layoutY="115.0" orientation="VERTICAL" prefHeight="485.0" prefWidth="500.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="115.0">
+      <SplitPane dividerPositions="0.3514056224899598" layoutX="107.0" layoutY="135.0" orientation="VERTICAL" prefHeight="465.0" prefWidth="500.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="135.0">
         <items>
-          <AnchorPane prefHeight="130.0" prefWidth="498.0">
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                <children>
                   <TableView fx:id="itemTable" layoutX="56.0" layoutY="-29.0" prefHeight="171.0" prefWidth="598.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <columns>
@@ -23,7 +23,7 @@
                   </TableView>
                </children>
             </AnchorPane>
-          <AnchorPane>
+          <AnchorPane prefHeight="316.0" prefWidth="498.0">
                <children>
                   <Label layoutX="14.0" layoutY="14.0" text="Informações do Item" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0" />
                   <GridPane layoutX="14.0" layoutY="48.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="30.0">
@@ -73,9 +73,9 @@
                </children></AnchorPane>
         </items>
       </SplitPane>
-      <GridPane prefHeight="118.0" prefWidth="500.0">
+      <GridPane layoutX="7.0" prefHeight="132.0" prefWidth="488.0">
         <columnConstraints>
-          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
         <rowConstraints>
@@ -84,11 +84,8 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label text="Razão Social:" />
-            <Label text="Endereço Físico:" GridPane.rowIndex="1" />
-            <Label text="Gerente:" GridPane.rowIndex="2" />
-            <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Label text="Label" />
+            <Label text="Label" GridPane.rowIndex="1" />
          </children>
       </GridPane>
    </children>
