@@ -5,23 +5,18 @@ import javafx.beans.property.StringProperty;
 
 public class FilialFX {
     
-    private StringProperty razaoSocial;
+    private final StringProperty razaoSocial;
     private Endereco enderecoFisico;
     private Gerente gerente;
     //private Estoque estoque;
 
-    public FilialFX(String razaoSocial, Endereco enderecoFisico, Gerente gerente, Estoque estoque) {
+    public FilialFX(String razaoSocial, Endereco enderecoFisico, Gerente gerente) {
         super();
         this.razaoSocial = new SimpleStringProperty(razaoSocial);
         this.enderecoFisico = enderecoFisico;
         this.gerente = gerente;
         //this.estoque = estoque;
     }
-
-    public FilialFX(String teste, Endereco endereco, Gerente gerente1) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
 
     public void setRazaoSocial(String razaoSocial) {
         this.razaoSocial.set(razaoSocial);
@@ -49,13 +44,5 @@ public class FilialFX {
 
     public Gerente getGerente() {
         return gerente;
-    }
-    
-    /*public void setEstoque(Estoque estoque) {
-        this.estoque = estoque;
-    }
-
-    public Estoque getEstoque() {
-        return estoque;
-    }*/
+    } 
 }

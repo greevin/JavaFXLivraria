@@ -1,7 +1,7 @@
 package javafxlivraria.model;
 
 public class Filial {
-    
+
     private String razaoSocial;
     private Endereco enderecoFisico;
     private Gerente gerente;
@@ -14,7 +14,6 @@ public class Filial {
         this.gerente = gerente;
         this.estoque = estoque;
     }
-
 
     public void setRazaoSocial(String razaoSocial) {
         this.razaoSocial = razaoSocial;
@@ -39,7 +38,7 @@ public class Filial {
     public Gerente getGerente() {
         return gerente;
     }
-    
+
     public void setEstoque(Estoque estoque) {
         this.estoque = estoque;
     }
@@ -47,11 +46,11 @@ public class Filial {
     public Estoque getEstoque() {
         return estoque;
     }
-    
+
     //String razaoSocial, Endereco enderecoFisico, Gerente gerente
-    public String toString(){
-        return String.format("Razão Social: %s"+
-                             "\nEndereço da Livraria: %s"+
-                             "\nResponsável: %s" + "\nTotal de itens em estoque: ", razaoSocial, enderecoFisico, gerente.getNome(), estoque);
+    public String toString() {
+        return String.format("Razão Social: %s"
+                + "\nEndereço da Livraria: %s"
+                + "\nResponsável: %s" + "\nTotal de itens em estoque: ", razaoSocial, enderecoFisico, gerente.getNome(), estoque);
     }
 }

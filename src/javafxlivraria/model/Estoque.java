@@ -1,12 +1,11 @@
 package javafxlivraria.model;
 
-import com.sun.org.apache.xml.internal.utils.StringBufferPool;
 
 import java.util.*;
 
 public class Estoque {
     
-    private ArrayList<Item> itens = new ArrayList<Item>();
+    private ArrayList<Item> itens = new ArrayList<>();
     
     public void cadastraItem(Item item){
         this.itens.add(item);
