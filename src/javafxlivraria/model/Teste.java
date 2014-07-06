@@ -1,5 +1,6 @@
 package javafxlivraria.model;
 
+import javafxlivraria.exception.EstoqueEsgotadoException;
 import java.util.*;
 
 public class Teste {
@@ -35,13 +36,12 @@ public class Teste {
         //Vendedor vendedor1 = new Vendedor("Juliano Pereira", "10/10/1980", "11/11/2011", 120, endereco4);
 
         Livro livro1 =
-            new Livro("Livro das Abelhas", "Editora Europa", 1, "Portugues", "05/05/2014", 230, 111111, 50, "Capa Dura",
-                      3);
+            new Livro("Livro das Abelhas", "Editora Europa", 1, "Portugues", "05/05/2014", 230, 111111, 50, "Capa Dura");
         Livro livro2 =
             new Livro("O Senhor dos Anéis - Volume Único", "Editora Atlas", 10, "Portugues", "09/04/2013", 690, 222222,
-                      150, "Capa Comum", 5);
+                      150, "Capa Comum");
 
-        Jornal jornal1 =
+        /*Jornal jornal1 =
             new Jornal("O Estado de Minas", "O Estado de Minas", 545454, "Português", "05/10/2013", 50, 22222222, 2,
                        3);
         
@@ -58,11 +58,11 @@ public class Teste {
         estoque.removeItem(livro2, 3);
         System.out.println();
         
-        Filial filial1 = new Filial("Livraria da Rua de Cima", enderecosFilial[0], gerente1, estoque);
+        Filial1 filial1 = new Filial1("Livraria da Rua de Cima", enderecosFilial[0], gerente1, estoque);
         System.out.println(filial1);
         System.out.println();
         
-        Filial filial2 = new Filial("Livraria da Vila", enderecosFilial[1], gerente2, estoque);
+        Filial1 filial2 = new Filial1("Livraria da Vila", enderecosFilial[1], gerente2, estoque);
         System.out.println(filial2);
         
         ItemPedido item1 = new ItemPedido(livro1, 3);

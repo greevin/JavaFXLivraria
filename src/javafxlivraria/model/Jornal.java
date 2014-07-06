@@ -4,8 +4,8 @@ public class Jornal extends Item {
 
 
     public Jornal(String nome, String editora, int edicao, String idioma, String dataDePublicacao, int numeroDePaginas,
-                  int codigoDeBarras, double preco, int quantidade) {
-        super(nome, editora, edicao, idioma, dataDePublicacao, numeroDePaginas, codigoDeBarras, preco, quantidade);
+                  int codigoDeBarras, double preco) {
+        super(nome, editora, edicao, idioma, dataDePublicacao, numeroDePaginas, codigoDeBarras, preco);
     }
 
     public String toString() {

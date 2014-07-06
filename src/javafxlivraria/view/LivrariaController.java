@@ -1,5 +1,7 @@
 package javafxlivraria.view;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -9,9 +11,11 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.util.StringConverter;
 import javafxlivraria.LivrariaPrincipal;
-import javafxlivraria.model.FilialFX;
-import javafxlivraria.model.ItemFX;
-import javafxlivraria.model.LivroFX;
+import javafxlivraria.model.Filial;
+import javafxlivraria.model.Item;
+import javafxlivraria.model.Jornal;
+import javafxlivraria.model.Livro;
+import javafxlivraria.model.Revista;
 
 /**
  *
@@ -20,14 +24,14 @@ import javafxlivraria.model.LivroFX;
 public class LivrariaController {
 
     @FXML
-    private TableView<LivroFX> itemTableLivro;
+    private TableView<Item> itemTableItens;
     @FXML
-    private TableColumn<ItemFX, String> nomeItemColuna;
+    private TableColumn<Item, String> tituloItemColuna;
     @FXML
-    private TableColumn<ItemFX, String> editoraItemColuna;
+    private TableColumn<Item, String> tipoItemColuna;
 
     @FXML
-    private ComboBox<FilialFX> filialComboBox;
+    private ComboBox<Filial> filialComboBox;
 
     @FXML
     private TextArea outputTextArea;
@@ -39,23 +43,26 @@ public class LivrariaController {
     @FXML
     private Label edicaoLabel;
     @FXML
-    private Label idiomaCodeLabel;
+    private Label idiomaLabel;
     @FXML
     private Label dataDePublicacaoLabel;
     @FXML
     private Label numeroDePaginasLabel;
+    @FXML
+    private Label codigoDeBarrasLabel;
+    @FXML
+    private Label precoLabel;
+    @FXML
+    private Label quantidadeLabel;
+    @FXML
+    private Label formatoLabel;
+
     @FXML
     private Label razaoSocialLabel;
     @FXML
     private Label enderecoLabel;
     @FXML
     private Label gerenteLabel;
-    /*@FXML
-     private Label idiomaCodeLabel;
-     @FXML
-     private Label dataDePublicacaoLabel;
-     @FXML
-     private Label numeroDePaginasLabel;*/
 
     // Reference to the main application.
     private LivrariaPrincipal mainApp;
@@ -73,25 +80,15 @@ public class LivrariaController {
      */
     @FXML
     private void initialize() {
-        // Initialize the person table with the two columns.
-        nomeItemColuna.setCellValueFactory(
-                cellData -> cellData.getValue().nomeProperty());
-        editoraItemColuna.setCellValueFactory(
-                cellData -> cellData.getValue().editoraProperty());
-
-        // Clear person details.
-        showItemDetails(null);
+        
         showFilialDetails(null);
-
-        // Listen for selection changes and show the person details when changed.
-        itemTableLivro.getSelectionModel().selectedItemProperty().addListener(
-                (observable, oldValue, newValue) -> showItemDetails(newValue));
-
+        showItemDetails(null);
+       
         // Define rendering of the list of values in ComboBox drop down. 
         filialComboBox.setCellFactory((comboBox) -> {
-            return new ListCell<FilialFX>() {
+            return new ListCell<Filial>() {
                 @Override
-                protected void updateItem(FilialFX filial, boolean empty) {
+                protected void updateItem(Filial filial, boolean empty) {
                     super.updateItem(filial, empty);
 
                     if (filial == null || empty) {
@@ -104,9 +101,9 @@ public class LivrariaController {
         });
 
         // Define rendering of selected value shown in ComboBox.
-        filialComboBox.setConverter(new StringConverter<FilialFX>() {
+        filialComboBox.setConverter(new StringConverter<Filial>() {
             @Override
-            public String toString(FilialFX filial) {
+            public String toString(Filial filial) {
                 if (filial == null) {
                     return null;
                 } else {
@@ -115,40 +112,75 @@ public class LivrariaController {
             }
 
             @Override
-            public FilialFX fromString(String filialString) {
+            public Filial fromString(String filialString) {
                 return null; // No conversion fromString needed.
             }
         });
 
         // Handle ComboBox event.
         filialComboBox.setOnAction((event) -> {
-            FilialFX selectedFilial = filialComboBox.getSelectionModel().getSelectedItem();
+            Filial selectedFilial = filialComboBox.getSelectionModel().getSelectedItem();
             showFilialDetails(selectedFilial);
+            preencheTabelaItens(selectedFilial);
+            
         });
+        
     }
 
-    private void showItemDetails(ItemFX item) {
+    private void preencheTabelaItens(Filial filial){
+        
+        // Add observable list data to the table
+        itemTableItens.setItems(filial.getEstoque().getOversableListItens());
+        
+         // Initialize the table with the two columns.
+        tipoItemColuna.setCellValueFactory(
+                cellData -> {
+                    SimpleStringProperty rotulo = new SimpleStringProperty();
+                    if(cellData.getValue() instanceof Jornal)
+                        rotulo.set("Jornal");
+                    else if(cellData.getValue() instanceof Revista)
+                        rotulo.set("Revista");
+                    else if(cellData.getValue() instanceof Livro)
+                        rotulo.set("Livro");
+                    return rotulo;
+                }
+                
+                );
+        tituloItemColuna.setCellValueFactory(
+                cellData -> cellData.getValue().nomeProperty());
+        
+        // Listen for selection changes and show the person details when changed.
+        itemTableItens.getSelectionModel().selectedItemProperty().addListener(
+                (observable, oldValue, newValue) -> showItemDetails(newValue));
+ 
+    }
+    
+    private void showItemDetails(Item item) {
         if (item != null) {
             // Fill the labels with info from the person object.
             nomeLabel.setText(item.getNome());
             editoraLabel.setText(item.getEditora());
             edicaoLabel.setText(Integer.toString(item.getEdicao()));
-            //postalCodeLabel.setText(Integer.toString(person.getPostalCode()));
-            //cityLabel.setText(person.getCity());
-
+            idiomaLabel.setText(item.getIdioma());
+            dataDePublicacaoLabel.setText(item.getDataDePublicacao());
+            numeroDePaginasLabel.setText(Integer.toString(item.getNumeroDePaginas()));
+            codigoDeBarrasLabel.setText(Integer.toString(item.getCodigoDeBarras()));
+            precoLabel.setText(Double.toString(item.getPreco()));
         } else {
             // Person is null, remove all the text.
             nomeLabel.setText("");
             editoraLabel.setText("");
             edicaoLabel.setText("");
-
-            //postalCodeLabel.setText("");
-            //cityLabel.setText("");
-            //birthdayLabel.setText("");
+            idiomaLabel.setText("");
+            dataDePublicacaoLabel.setText("");
+            numeroDePaginasLabel.setText("");
+            codigoDeBarrasLabel.setText("");
+            precoLabel.setText("");
+            formatoLabel.setText("");
         }
     }
 
-    private void showFilialDetails(FilialFX filial) {
+    private void showFilialDetails(Filial filial) {
         if (filial != null) {
             // Fill the labels with info from the person object.
             razaoSocialLabel.setText(filial.getRazaoSocial());
@@ -170,10 +202,7 @@ public class LivrariaController {
      */
     public void setMainApp(LivrariaPrincipal mainApp) {
         this.mainApp = mainApp;
-
-        // Add observable list data to the table
-        itemTableLivro.setItems(mainApp.getItemData());
+        
         filialComboBox.setItems(mainApp.getComboBoxData());
-
     }
 }

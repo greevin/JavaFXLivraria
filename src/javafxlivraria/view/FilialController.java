@@ -10,7 +10,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
 import javafxlivraria.LivrariaPrincipal;
-import javafxlivraria.model.FilialFX;
+import javafxlivraria.model.Filial;
 
 /**
  *
@@ -18,7 +18,7 @@ import javafxlivraria.model.FilialFX;
  */
 public class FilialController {
     @FXML
-    private TableView<FilialFX> itemTable;
+    private TableView<Filial> itemTable;
     /*@FXML
     private TableColumn<FilialFX, String> nomeColumn;
     @FXML
@@ -67,7 +67,7 @@ public class FilialController {
             (observable, oldValue, newValue) -> showFilialDetails(newValue));
     }
 
-    private void showFilialDetails(FilialFX person) {
+    private void showFilialDetails(Filial person) {
     if (person != null) {
         // Fill the labels with info from the person object.
         razaoSocialLabel.setText(person.getRazaoSocial());

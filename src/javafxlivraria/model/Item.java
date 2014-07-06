@@ -1,111 +1,151 @@
 package javafxlivraria.model;
 
-public abstract class Item {
-    
-    private String nome;
-    private String editora;
-    private int edicao;
-    private String idioma;
-    private String dataDePublicacao;
-    private int numeroDePaginas;
-    private int codigoDeBarras;
-    private double preco;
-    private int quantidade;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 
+public class Item {
 
-    public Item(String nome, String editora, int edicao, String idioma, String dataDePublicacao, int numeroDePaginas,
-                int codigoDeBarras, double preco, int quantidade) {
-        this.nome = nome;
-        this.editora = editora;
-        this.edicao = edicao;
-        this.idioma = idioma;
-        this.dataDePublicacao = dataDePublicacao;
-        this.numeroDePaginas = numeroDePaginas;
-        this.codigoDeBarras = codigoDeBarras;
-        this.preco = preco;
-        this.quantidade = quantidade;
+    private StringProperty nome;
+    private StringProperty editora;
+    private IntegerProperty edicao;
+    private StringProperty idioma;
+    private StringProperty dataDePublicacao;
+    private IntegerProperty numeroDePaginas;
+    private IntegerProperty codigoDeBarras;
+    private DoubleProperty preco;
+
+    public Item(String nome, String editora, int edicao, String idioma, String dataDePublicacao, int numeroDePaginas, int codigoDeBarras, double preco) {
+        this.nome = new SimpleStringProperty(nome);
+        this.editora = new SimpleStringProperty(editora);
+        this.edicao = new SimpleIntegerProperty(edicao);
+        this.idioma = new SimpleStringProperty(idioma);
+        this.dataDePublicacao = new SimpleStringProperty(dataDePublicacao);
+        this.numeroDePaginas = new SimpleIntegerProperty(numeroDePaginas);
+        this.codigoDeBarras = new SimpleIntegerProperty(codigoDeBarras);
+        this.preco = new SimpleDoubleProperty(preco);
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
+    /**
+     * @return the nome
+     */
     public String getNome() {
+        return nome.get();
+    }
+
+    /**
+     * @param nome the nome to set
+     */
+    public void setNome(String nome) {
+        this.nome.set(nome);
+    }
+
+    public StringProperty nomeProperty() {
         return nome;
     }
 
-    public void setEditora(String editora) {
-        this.editora = editora;
+    /**
+     * @return the editora
+     */
+    public String getEditora() {
+        return editora.get();
     }
 
-    public String getEditora() {
+    /**
+     * @param editora the editora to set
+     */
+    public void setEditora(String editora) {
+        this.editora.set(editora);
+    }
+
+    public StringProperty editoraProperty() {
         return editora;
     }
 
-    public void setEdicao(int edicao) {
-        this.edicao = edicao;
+    /**
+     * @return the edicao
+     */
+    public int getEdicao() {
+        return edicao.get();
     }
 
-    public int getEdicao() {
+    /**
+     * @param edicao the edicao to set
+     */
+    public void setEdicao(int edicao) {
+        this.edicao.set(edicao);
+    }
+
+    public IntegerProperty edicaoProperty() {
         return edicao;
     }
 
-    public void setIdioma(String idioma) {
-        this.idioma = idioma;
+    /**
+     * @return the idioma
+     */
+    public String getIdioma() {
+        return idioma.get();
     }
 
-    public String getIdioma() {
+    public void setIdioma(String idioma) {
+        this.idioma.set(idioma);
+    }
+
+    public StringProperty idiomaProperty() {
         return idioma;
     }
 
-    public void setDataDePublicacao(String dataDePublicacao) {
-        this.dataDePublicacao = dataDePublicacao;
+    public String getDataDePublicacao() {
+        return dataDePublicacao.get();
     }
 
-    public String getDataDePublicacao() {
+    public void setDataDePublicacao(String dataDePublicacao) {
+        this.dataDePublicacao.set(dataDePublicacao);
+    }
+
+    public StringProperty dataDePublicacaoProperty() {
         return dataDePublicacao;
     }
 
+    public int getNumeroDePaginas() {
+        return numeroDePaginas.get();
+    }
+    
     public void setNumeroDePaginas(int numeroDePaginas) {
-        this.numeroDePaginas = numeroDePaginas;
+        this.numeroDePaginas.set(numeroDePaginas);
     }
 
-    public int getNumeroDePaginas() {
+    public IntegerProperty numeroDePaginasProperty() {
         return numeroDePaginas;
     }
 
-    public void setCodigoDeBarras(int codigoDeBarras) {
-        this.codigoDeBarras = codigoDeBarras;
+    public int getCodigoDeBarras() {
+        return codigoDeBarras.get();
     }
 
-    public int getCodigoDeBarras() {
+    public void setCodigoDeBarras(int codigoDeBarras) {
+        this.codigoDeBarras.set(codigoDeBarras);
+    }
+    
+    public IntegerProperty codigoDeBarrasProperty() {
         return codigoDeBarras;
     }
 
-    public void setPreco(double preco) {
-        this.preco = preco;
+    public double getPreco() {
+        return preco.get();
     }
 
-    public double getPreco() {
+    /**
+     * @param preco the preco to set
+     */
+    public void setPreco(double preco) {
+        this.preco.set(preco);
+    }
+    
+    public DoubleProperty precoProperty() {
         return preco;
     }
-    
-    public void setQuantidade(int quantidade) {
-        this.quantidade = quantidade;
-    }
-
-    public int getQuantidade() {
-        return quantidade;
-    }
-    
-    //String nome, String editora, int edicao, String formato, String idioma, int dataDePublicacao,
-    //int numeroDePaginas, int codigoDeBarras, double preco, int quantidade
-
-    public String toString() {
-        return String.format("\nNome: %s " + "\nEditora: %s" + "\nEdicao: %s" + "\nIdioma: %s" +
-                             "\nData de Publicação: %s" + "\nNumero de Páginas: %d" + "\nCódigo de Barras: %s" +
-                             "\nPreço: %.2f" + "\nQuantidade: %d", nome, editora, edicao, idioma, dataDePublicacao,
-                             numeroDePaginas, codigoDeBarras, preco, quantidade);
-    }
-
 }

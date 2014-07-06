@@ -1,5 +1,7 @@
 package javafxlivraria.model;
 
+import javafxlivraria.exception.EstoqueEsgotadoException;
+
 public class Order {
 
     private Cliente cliente;

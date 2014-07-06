@@ -1,32 +1,25 @@
 package javafxlivraria.model;
 
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+public class Filial1 {
 
-public class Filial {
-    
-    private final StringProperty razaoSocial;
+    private String razaoSocial;
     private Endereco enderecoFisico;
     private Gerente gerente;
     private Estoque estoque;
 
-    public Filial(String razaoSocial, Endereco enderecoFisico, Gerente gerente, Estoque estoque) {
+    public Filial1(String razaoSocial, Endereco enderecoFisico, Gerente gerente, Estoque estoque) {
         super();
-        this.razaoSocial = new SimpleStringProperty(razaoSocial);
+        this.razaoSocial = razaoSocial;
         this.enderecoFisico = enderecoFisico;
         this.gerente = gerente;
         this.estoque = estoque;
     }
 
     public void setRazaoSocial(String razaoSocial) {
-        this.razaoSocial.set(razaoSocial);
+        this.razaoSocial = razaoSocial;
     }
 
     public String getRazaoSocial() {
-        return razaoSocial.get();
-    }
-    
-    public StringProperty razaoSocialProperty() {
         return razaoSocial;
     }
 
@@ -44,13 +37,20 @@ public class Filial {
 
     public Gerente getGerente() {
         return gerente;
-    } 
+    }
+
+    public void setEstoque(Estoque estoque) {
+        this.estoque = estoque;
+    }
 
     public Estoque getEstoque() {
         return estoque;
     }
 
-    public void setEstoque(Estoque estoque) {
-        this.estoque = estoque;
+    //String razaoSocial, Endereco enderecoFisico, Gerente gerente
+    public String toString() {
+        return String.format("Razão Social: %s"
+                + "\nEndereço da Livraria: %s"
+                + "\nResponsável: %s" + "\nTotal de itens em estoque: ", razaoSocial, enderecoFisico, gerente.getNome(), estoque);
     }
 }
