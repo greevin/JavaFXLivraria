@@ -3,14 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/Users/glauber/Documents/JavaFXLivraria/src/javafxlivraria/model/Teste.java</file>
-            <file>file:/Users/glauber/Documents/JavaFXLivraria/src/javafxlivraria/model/Item.java</file>
-            <file>file:/Users/glauber/Documents/JavaFXLivraria/src/javafxlivraria/model/Livro.java</file>
+            <file>file:/Users/glauber/Documents/JavaFXLivraria/src/javafxlivraria/view/CompraController.java</file>
             <file>file:/Users/glauber/Documents/JavaFXLivraria/src/javafxlivraria/LivrariaPrincipal.java</file>
             <file>file:/Users/glauber/Documents/JavaFXLivraria/src/javafxlivraria/view/LivrariaController.java</file>
-            <file>file:/Users/glauber/Documents/JavaFXLivraria/src/javafxlivraria/model/Jornal.java</file>
-            <file>file:/Users/glauber/Documents/JavaFXLivraria/src/javafxlivraria/model/Estoque.java</file>
-            <file>file:/Users/glauber/Documents/JavaFXLivraria/src/javafxlivraria/model/Filial.java</file>
         </group>
     </open-files>
 </project-private>

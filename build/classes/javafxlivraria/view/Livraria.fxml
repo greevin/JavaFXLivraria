@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
@@ -59,17 +60,16 @@
                         <Label fx:id="numeroDePaginasLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                         <Label fx:id="codigoDeBarrasLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="7" />
                         <Label text="Preço:" GridPane.rowIndex="8" />
-                        <Label fx:id="precoLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="8" />
                         <Label text="Formato:" GridPane.rowIndex="9" />
                         <Label fx:id="formatoLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="9" />
                         <Label text="Informações do Item" />
                         <HBox alignment="TOP_CENTER" prefHeight="27.0" prefWidth="500.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="10">
                            <children>
-                              <Button mnemonicParsing="false" text="Comprar" />
-                              <Button mnemonicParsing="false" text="Button" />
-                              <Button mnemonicParsing="false" text="Button" />
+                              <Button mnemonicParsing="false" onAction="#handleComprar" text="Comprar" />
+                              <Button mnemonicParsing="false" text="Limpar" />
                            </children>
                         </HBox>
+                        <Label fx:id="precoLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="8" />
                      </children>
                   </GridPane>
                </children></AnchorPane>
