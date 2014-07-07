@@ -6,8 +6,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="450.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8">
+<AnchorPane id="AnchorPane" prefHeight="450.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafxlivraria.view.CompraController">
    <children>
       <GridPane layoutX="14.0" layoutY="14.0" prefHeight="70.0" prefWidth="575.0">
         <columnConstraints>
@@ -21,14 +20,14 @@
         </rowConstraints>
          <children>
             <Label text="Selecione o cliente:" />
-            <ComboBox prefHeight="26.0" prefWidth="266.0" GridPane.columnIndex="1" />
+            <ComboBox fx:id="clienteComboBox" prefHeight="26.0" prefWidth="266.0" GridPane.columnIndex="1" />
             <Label text="Endereço de Faturamento:" GridPane.rowIndex="1" />
             <Label text="Endereço de Entrega:" GridPane.rowIndex="2" />
-            <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Label fx:id="enderecoFaturamentoLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label fx:id="enderecoEntregaLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
          </children>
       </GridPane>
-      <Separator layoutX="124.0" layoutY="106.0" prefHeight="3.0" prefWidth="353.0" />
+      <Separator layoutX="124.0" layoutY="101.0" prefHeight="3.0" prefWidth="353.0" />
       <Label layoutX="248.0" layoutY="111.0" text="Dados do Pedido" />
       <GridPane layoutX="14.0" layoutY="275.0" prefHeight="109.0" prefWidth="575.0">
         <columnConstraints>
@@ -46,16 +45,16 @@
             <TextField GridPane.columnIndex="1" />
             <Label text="Forma de Pagamento:" GridPane.rowIndex="1" />
             <Label text="Número de Parcelas:" GridPane.rowIndex="2" />
-            <ComboBox prefHeight="26.0" prefWidth="297.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <ComboBox fx:id="formaPagamentoComboBox" prefHeight="26.0" prefWidth="297.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <Label text="Preço Total:" GridPane.rowIndex="3" />
             <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
          </children>
       </GridPane>
-      <TableView layoutX="7.0" layoutY="130.0" prefHeight="139.0" prefWidth="582.0">
+      <TableView fx:id="itemTableItens" layoutX="7.0" layoutY="130.0" prefHeight="139.0" prefWidth="582.0">
         <columns>
-          <TableColumn prefWidth="359.0" text="Item Selecionado" />
-          <TableColumn minWidth="0.0" prefWidth="222.0" text="Preço Unitário" />
+          <TableColumn fx:id="tituloItemColuna" prefWidth="359.0" text="Item Selecionado" />
+          <TableColumn fx:id="precoItemColuna" minWidth="0.0" prefWidth="222.0" text="Preço Unitário" />
         </columns>
       </TableView>
       <Button layoutX="229.0" layoutY="410.0" mnemonicParsing="false" text="Concluir" />

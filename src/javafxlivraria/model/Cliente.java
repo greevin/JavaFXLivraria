@@ -1,13 +1,15 @@
 package javafxlivraria.model;
 
 import java.util.*;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 
 /** 
  * Classe com informações sobre o Cliente
  * **/
 public class Cliente {
     
-    private String nome;
+    private StringProperty nome;
     private String dataDeCadastro;
     private String dataDeAniversario;
     private Endereco enderecoDeEntrega;
@@ -15,7 +17,7 @@ public class Cliente {
 
     public Cliente(String nome, String dataDeCadastro, String dataDeAniversario, Endereco enderecoDeEntrega,
                    Endereco enderecoDeFaturamento) {
-        this.nome = nome;
+        this.nome = new SimpleStringProperty(nome);
         this.dataDeAniversario = dataDeAniversario;
         this.dataDeCadastro = dataDeCadastro;
         this.enderecoDeEntrega = enderecoDeEntrega;
@@ -23,10 +25,14 @@ public class Cliente {
     }
 
     public void setNome(String nome) {
-        this.nome = nome;
+        this.nome.set(nome);
     }
 
     public String getNome() {
+        return nome.get();
+    }
+    
+    public StringProperty nomeProperty() {
         return nome;
     }
 
@@ -45,14 +51,34 @@ public class Cliente {
     public String getDataDeCadastro() {
         return dataDeCadastro;
     }
-    
-    //String nome, int dataDeCadastro, int dataDeAniversario, 
-    //Endereco enderecoDeEntrega, Endereco enderecoDeFaturamento
-    public String toString(){
-        return String.format("Nome do Cliente: %s " +
-            "\nCadastrado desde: %s " +
-            "\nData de Aniversário: %s " +
-            "\nEndereço de Entrega: %s" +
-            "\nEndereço de Faturamento: %s", nome, dataDeCadastro, dataDeAniversario, enderecoDeEntrega, enderecoDeFaturamento);
+
+    /**
+     * @return the enderecoDeEntrega
+     */
+    public Endereco getEnderecoDeEntrega() {
+        return enderecoDeEntrega;
     }
+
+    /**
+     * @param enderecoDeEntrega the enderecoDeEntrega to set
+     */
+    public void setEnderecoDeEntrega(Endereco enderecoDeEntrega) {
+        this.enderecoDeEntrega = enderecoDeEntrega;
+    }
+
+    /**
+     * @return the enderecoDeFaturamento
+     */
+    public Endereco getEnderecoDeFaturamento() {
+        return enderecoDeFaturamento;
+    }
+
+    /**
+     * @param enderecoDeFaturamento the enderecoDeFaturamento to set
+     */
+    public void setEnderecoDeFaturamento(Endereco enderecoDeFaturamento) {
+        this.enderecoDeFaturamento = enderecoDeFaturamento;
+    }
+    
+    
 }

@@ -3,6 +3,8 @@ package javafxlivraria;
 import java.io.IOException;
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
@@ -16,6 +18,7 @@ import javafxlivraria.model.Endereco;
 import javafxlivraria.model.Estoque;
 import javafxlivraria.model.Filial;
 import javafxlivraria.model.Gerente;
+import javafxlivraria.model.Item;
 import javafxlivraria.model.Jornal;
 import javafxlivraria.model.Livro;
 import javafxlivraria.model.Revista;
@@ -33,6 +36,8 @@ public class LivrariaPrincipal extends Application {
     private ObservableList<Livro> livroData = FXCollections.observableArrayList();
     private ObservableList<Revista> revistaData = FXCollections.observableArrayList();
     private ObservableList<Filial> filialComboBoxData = FXCollections.observableArrayList();
+    private ObservableList<Cliente> clienteComboBoxData = FXCollections.observableArrayList();
+    private ObservableList<StringProperty> formaPagamentoComboBoxData = FXCollections.observableArrayList();
 
     public LivrariaPrincipal() {
 
@@ -92,9 +97,13 @@ public class LivrariaPrincipal extends Application {
         filiais[0] = new Filial("Livraria dos Jornalistas", enderecosFilial[0], gerentes[0], estoques[0]);
         filiais[1] = new Filial("Livraria dos João Braga", enderecosFilial[1], gerentes[1], estoques[1]);
 
-        filialComboBoxData.add(filiais[0]);
-        filialComboBoxData.add(filiais[1]);
+        filialComboBoxData.addAll(filiais);
 
+        clienteComboBoxData.addAll(clientes);
+
+        formaPagamentoComboBoxData.add(new SimpleStringProperty("Dinheiro"));
+        formaPagamentoComboBoxData.add(new SimpleStringProperty("Cartão de Crédito"));
+        formaPagamentoComboBoxData.add(new SimpleStringProperty("Cartão de Débito"));
     }
 
     public ObservableList<Livro> getItemData() {
@@ -107,6 +116,14 @@ public class LivrariaPrincipal extends Application {
 
     public ObservableList<Filial> getComboBoxData() {
         return filialComboBoxData;
+    }
+
+    public ObservableList<StringProperty> getFormaPagamentoComboBoxData() {
+        return formaPagamentoComboBoxData;
+    }
+
+    public ObservableList<Cliente> getClienteComboBoxData() {
+        return clienteComboBoxData;
     }
 
     @Override
@@ -156,36 +173,36 @@ public class LivrariaPrincipal extends Application {
             e.printStackTrace();
         }
     }
-    
-    public boolean showComprarDialog() {
-    try {
-        // Load the fxml file and create a new stage for the popup dialog.
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(LivrariaPrincipal.class.getResource("view/Compra.fxml"));
-        AnchorPane page = (AnchorPane) loader.load();
 
-        // Create the dialog Stage.
-        Stage dialogStage = new Stage();
-        dialogStage.setTitle("Efetuar Compra");
-        dialogStage.initModality(Modality.WINDOW_MODAL);
-        dialogStage.initOwner(primaryStage);
-        Scene scene = new Scene(page);
-        dialogStage.setScene(scene);
+    public boolean showComprar(Item item) {
+        try {
+            // Load the fxml file and create a new stage for the popup dialog.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(LivrariaPrincipal.class.getResource("view/Compra.fxml"));
+            AnchorPane page = (AnchorPane) loader.load();
 
-        // Set the person into the controller.
-        CompraController controller = loader.getController();
-        controller.setDialogStage(dialogStage);
-        //controller.setPerson(person);
+            // Create the dialog Stage.
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Efetuar Compra");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(primaryStage);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
 
-        // Show the dialog and wait until the user closes it
-        dialogStage.showAndWait();
+            // Set the person into the controller.
+            CompraController controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+            controller.setMainApp(this);
 
-        return controller.isConcluirClicked();
-    } catch (IOException e) {
-        e.printStackTrace();
-        return false;
+            // Show the dialog and wait until the user closes it
+            dialogStage.showAndWait();
+
+            return controller.isConcluirClicked();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
-}
 
     /**
      * Returns the main stage.

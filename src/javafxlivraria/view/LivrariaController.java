@@ -1,10 +1,5 @@
 package javafxlivraria.view;
 
-import java.awt.Desktop.Action;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
@@ -15,7 +10,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.util.StringConverter;
 import javafxlivraria.LivrariaPrincipal;
-import javafxlivraria.model.Cliente;
 import javafxlivraria.model.Filial;
 import javafxlivraria.model.Item;
 import javafxlivraria.model.Jornal;
@@ -194,7 +188,6 @@ public class LivrariaController {
             razaoSocialLabel.setText(filial.getRazaoSocial());
             enderecoLabel.setText(filial.getEnderecoFisico().getCidade());
             gerenteLabel.setText(filial.getGerente().getNome());
-
         } else {
             // Person is null, remove all the text.
             razaoSocialLabel.setText("");
@@ -204,25 +197,11 @@ public class LivrariaController {
     }
 
     @FXML
-    private void botaoOK() {
-        org.controlsfx.control.action.Action response = Dialogs.create()
-                .owner(stage)
-                .title("Efetuar Compra")
-                //.masthead("Look, a Confirm Dialog")
-                .message("Deseja continuar com a compra?")
-                .showConfirm();
-
-        if (response == Dialog.Actions.YES) {
-            handleComprar();
-        } else {
-            System.out.println("Você apertou o não!");
-        }
-    }
-
-    @FXML
     private void handleComprar() {
         System.out.println("Você apertou o comprar");
-        mainApp.showComprarDialog();
+        Item item = itemTableItens.getSelectionModel().selectedItemProperty().get();
+        
+        mainApp.showComprar(item);
     }
 
     /**
