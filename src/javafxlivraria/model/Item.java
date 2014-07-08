@@ -1,5 +1,7 @@
 package javafxlivraria.model;
 
+import java.util.Objects;
+import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -7,18 +9,51 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
+/**
+ *
+ * @author casn
+ */
 public class Item {
 
-    private StringProperty nome;
-    private StringProperty editora;
-    private IntegerProperty edicao;
-    private StringProperty idioma;
-    private StringProperty dataDePublicacao;
-    private IntegerProperty numeroDePaginas;
-    private IntegerProperty codigoDeBarras;
-    private DoubleProperty preco;
+    private final StringProperty nome;
+    private final StringProperty editora;
+    private final IntegerProperty edicao;
+    private final StringProperty idioma;
+    private final StringProperty dataDePublicacao;
+    private final IntegerProperty numeroDePaginas;
+    private final IntegerProperty codigoDeBarras;
+    private final DoubleProperty preco;
+    private final IntegerProperty quantidade;
 
-    public Item(String nome, String editora, int edicao, String idioma, String dataDePublicacao, int numeroDePaginas, int codigoDeBarras, double preco) {
+    
+    /**
+     *
+     * @param nome
+     * @param editora
+     * @param edicao
+     * @param idioma
+     * @param dataDePublicacao
+     * @param numeroDePaginas
+     * @param codigoDeBarras
+     * @param preco
+     */
+    public Item(String nome, String editora, Integer edicao, String idioma, String dataDePublicacao, Integer numeroDePaginas, Integer codigoDeBarras, Double preco) {
+        this(nome, editora, edicao, idioma, dataDePublicacao, numeroDePaginas, codigoDeBarras, preco,0);
+    }
+    
+    /**
+     *
+     * @param nome
+     * @param editora
+     * @param edicao
+     * @param idioma
+     * @param dataDePublicacao
+     * @param numeroDePaginas
+     * @param codigoDeBarras
+     * @param preco
+     * @param quantidade
+     */
+    public Item(String nome, String editora, Integer edicao, String idioma, String dataDePublicacao, Integer numeroDePaginas, Integer codigoDeBarras, Double preco, Integer quantidade) {
         this.nome = new SimpleStringProperty(nome);
         this.editora = new SimpleStringProperty(editora);
         this.edicao = new SimpleIntegerProperty(edicao);
@@ -27,7 +62,9 @@ public class Item {
         this.numeroDePaginas = new SimpleIntegerProperty(numeroDePaginas);
         this.codigoDeBarras = new SimpleIntegerProperty(codigoDeBarras);
         this.preco = new SimpleDoubleProperty(preco);
+        this.quantidade = new SimpleIntegerProperty(quantidade);
     }
+
 
     /**
      * @return the nome
@@ -43,6 +80,10 @@ public class Item {
         this.nome.set(nome);
     }
 
+    /**
+     *
+     * @return
+     */
     public StringProperty nomeProperty() {
         return nome;
     }
@@ -61,6 +102,10 @@ public class Item {
         this.editora.set(editora);
     }
 
+    /**
+     *
+     * @return
+     */
     public StringProperty editoraProperty() {
         return editora;
     }
@@ -68,17 +113,21 @@ public class Item {
     /**
      * @return the edicao
      */
-    public int getEdicao() {
+    public Integer getEdicao() {
         return edicao.get();
     }
 
     /**
      * @param edicao the edicao to set
      */
-    public void setEdicao(int edicao) {
+    public void setEdicao(Integer edicao) {
         this.edicao.set(edicao);
     }
 
+    /**
+     *
+     * @return
+     */
     public IntegerProperty edicaoProperty() {
         return edicao;
     }
@@ -90,62 +139,185 @@ public class Item {
         return idioma.get();
     }
 
+    /**
+     *
+     * @param idioma
+     */
     public void setIdioma(String idioma) {
         this.idioma.set(idioma);
     }
 
+    /**
+     *
+     * @return
+     */
     public StringProperty idiomaProperty() {
         return idioma;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getDataDePublicacao() {
         return dataDePublicacao.get();
     }
 
+    /**
+     *
+     * @param dataDePublicacao
+     */
     public void setDataDePublicacao(String dataDePublicacao) {
         this.dataDePublicacao.set(dataDePublicacao);
     }
 
+    /**
+     *
+     * @return
+     */
     public StringProperty dataDePublicacaoProperty() {
         return dataDePublicacao;
     }
 
-    public int getNumeroDePaginas() {
+    /**
+     *
+     * @return
+     */
+    public Integer getNumeroDePaginas() {
         return numeroDePaginas.get();
     }
     
-    public void setNumeroDePaginas(int numeroDePaginas) {
+    /**
+     *
+     * @param numeroDePaginas
+     */
+    public void setNumeroDePaginas(Integer numeroDePaginas) {
         this.numeroDePaginas.set(numeroDePaginas);
     }
 
+    /**
+     *
+     * @return
+     */
     public IntegerProperty numeroDePaginasProperty() {
         return numeroDePaginas;
     }
 
-    public int getCodigoDeBarras() {
+    /**
+     *
+     * @return
+     */
+    public Integer getCodigoDeBarras() {
         return codigoDeBarras.get();
     }
 
-    public void setCodigoDeBarras(int codigoDeBarras) {
+    /**
+     *
+     * @param codigoDeBarras
+     */
+    public void setCodigoDeBarras(Integer codigoDeBarras) {
         this.codigoDeBarras.set(codigoDeBarras);
     }
     
+    /**
+     *
+     * @return
+     */
     public IntegerProperty codigoDeBarrasProperty() {
         return codigoDeBarras;
     }
 
-    public double getPreco() {
+    /**
+     *
+     * @return
+     */
+    public Double getPreco() {
         return preco.get();
     }
 
     /**
      * @param preco the preco to set
      */
-    public void setPreco(double preco) {
+    public void setPreco(Double preco) {
         this.preco.set(preco);
     }
     
+    /**
+     *
+     * @return
+     */
     public DoubleProperty precoProperty() {
         return preco;
+    }
+    
+    /**
+     *
+     * @return
+     */
+    public Integer getQuantidade() {
+        return quantidade.get();
+    }
+
+    /**
+     *
+     * @param quantidade
+     */
+    public void setQuantidade(Integer quantidade) {
+        this.quantidade.set(quantidade);
+    }
+
+    /**
+     *
+     * @return
+     */
+    public IntegerProperty quantidadeProperty(){
+        return quantidade;
+    }
+    
+    
+    @Override
+    public int hashCode() {
+        Integer hash = 3;
+        hash = 31 * hash + Objects.hashCode(this.nome);
+        hash = 31 * hash + Objects.hashCode(this.editora);
+        hash = 31 * hash + Objects.hashCode(this.edicao);
+        hash = 31 * hash + Objects.hashCode(this.idioma);
+        hash = 31 * hash + Objects.hashCode(this.dataDePublicacao);
+        hash = 31 * hash + Objects.hashCode(this.numeroDePaginas);
+        hash = 31 * hash + Objects.hashCode(this.codigoDeBarras);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Item other = (Item) obj;
+        if (!Objects.equals(this.nome, other.nome)) {
+            return false;
+        }
+        if (!Objects.equals(this.editora, other.editora)) {
+            return false;
+        }
+        if (!Objects.equals(this.edicao, other.edicao)) {
+            return false;
+        }
+        if (!Objects.equals(this.idioma, other.idioma)) {
+            return false;
+        }
+        if (!Objects.equals(this.dataDePublicacao, other.dataDePublicacao)) {
+            return false;
+        }
+        if (!Objects.equals(this.numeroDePaginas, other.numeroDePaginas)) {
+            return false;
+        }
+        if (!Objects.equals(this.codigoDeBarras, other.codigoDeBarras)) {
+            return false;
+        }
+        return true;
     }
 }

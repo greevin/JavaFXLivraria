@@ -1,13 +1,15 @@
 package javafxlivraria.view;
 
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.util.StringConverter;
 import javafxlivraria.LivrariaPrincipal;
 import javafxlivraria.model.Filial;
@@ -15,30 +17,37 @@ import javafxlivraria.model.Item;
 import javafxlivraria.model.Jornal;
 import javafxlivraria.model.Livro;
 import javafxlivraria.model.Revista;
-import org.controlsfx.dialog.Dialog;
-import org.controlsfx.dialog.Dialogs;
 
 /**
  *
  * @author casn
  */
-public class LivrariaController {
+public class EscolheProdutosController {
 
-    @FXML
-    private TableView<Item> itemTableItens;
-    @FXML
-    private TableColumn<Item, String> tituloItemColuna;
-    @FXML
-    private TableColumn<Item, String> tipoItemColuna;
+    // Reference to the main application.
+    private LivrariaPrincipal mainApp;
+    private Object stage;
 
     @FXML
     private ComboBox<Filial> filialComboBox;
+    @FXML
+    private Label razaoSocialLabel;
+    @FXML
+    private Label enderecoLabel;
+    @FXML
+    private Label gerenteLabel;
 
     @FXML
-    private TextArea outputTextArea;
+    private TableView<Item> tabelaItens;
+    @FXML
+    private TableColumn<Item, String> tipoColunaItens;
+    @FXML
+    private TableColumn<Item, String> tituloColunaItens;
+    @FXML
+    private TableColumn<Item, String> estoqueColunaItens;
 
     @FXML
-    private Label nomeLabel;
+    private Label tituloLabel;
     @FXML
     private Label editoraLabel;
     @FXML
@@ -52,28 +61,42 @@ public class LivrariaController {
     @FXML
     private Label codigoDeBarrasLabel;
     @FXML
+    private Label formatoLabel;
+    @FXML
     private Label precoLabel;
     @FXML
     private Label quantidadeLabel;
-    @FXML
-    private Label formatoLabel;
 
     @FXML
-    private Label razaoSocialLabel;
-    @FXML
-    private Label enderecoLabel;
-    @FXML
-    private Label gerenteLabel;
+    private TextField quantidadeField;
 
-    // Reference to the main application.
-    private LivrariaPrincipal mainApp;
-    private Object stage;
+    @FXML
+    private TableView<Item> tabelaCarrinho;
+    @FXML
+    private TableColumn<Item, String> tituloColunaCarrinho;
+    @FXML
+    private TableColumn<Item, String> precoColunaCarrinho;
+    @FXML
+    private TableColumn<Item, String> quantidadeColunaCarrinho;
+    @FXML
+    private TableColumn<Item, String> totalColunaCarrinho;
 
     /**
      * The constructor. The constructor is called before the initialize()
      * method.
      */
-    public LivrariaController() {
+    public EscolheProdutosController() {
+    }
+
+    /**
+     * Is called by the main application to give a reference back to itself.
+     *
+     * @param mainApp
+     */
+    public void setMainApp(LivrariaPrincipal mainApp) {
+        this.mainApp = mainApp;
+
+        filialComboBox.setItems(mainApp.getComboBoxData());
     }
 
     /**
@@ -82,9 +105,8 @@ public class LivrariaController {
      */
     @FXML
     private void initialize() {
-
         showFilialDetails(null);
-        showItemDetails(null);
+        mostrarDetalhesItem(null);
 
         // Define rendering of the list of values in ComboBox drop down. 
         filialComboBox.setCellFactory((comboBox) -> {
@@ -126,16 +148,16 @@ public class LivrariaController {
             preencheTabelaItens(selectedFilial);
 
         });
-
     }
 
     private void preencheTabelaItens(Filial filial) {
-
         // Add observable list data to the table
-        itemTableItens.setItems(filial.getEstoque().getOversableListItens());
+        ObservableList<Item> lista = FXCollections.observableArrayList();
+        lista.addAll(filial.getEstoque().getOversableListEstoqueDeItens());
+        tabelaItens.setItems(lista);
 
         // Initialize the table with the two columns.
-        tipoItemColuna.setCellValueFactory(
+        tipoColunaItens.setCellValueFactory(
                 cellData -> {
                     SimpleStringProperty rotulo = new SimpleStringProperty();
                     if (cellData.getValue() instanceof Jornal) {
@@ -148,37 +170,47 @@ public class LivrariaController {
                     return rotulo;
                 }
         );
-        tituloItemColuna.setCellValueFactory(
+        tituloColunaItens.setCellValueFactory(
                 cellData -> cellData.getValue().nomeProperty());
 
+        estoqueColunaItens.setCellValueFactory(
+                cellData -> new SimpleStringProperty(cellData.getValue().getQuantidade().toString()));
+
         // Listen for selection changes and show the person details when changed.
-        itemTableItens.getSelectionModel().selectedItemProperty().addListener(
-                (observable, oldValue, newValue) -> showItemDetails(newValue));
+        tabelaItens.getSelectionModel().selectedItemProperty().addListener(
+                (observable, oldValue, newValue) -> mostrarDetalhesItem(newValue));
 
     }
 
-    private void showItemDetails(Item item) {
+    private void mostrarDetalhesItem(Item item) {
         if (item != null) {
             // Fill the labels with info from the item object.
-            nomeLabel.setText(item.getNome());
+            tituloLabel.setText(item.getNome());
             editoraLabel.setText(item.getEditora());
             edicaoLabel.setText(Integer.toString(item.getEdicao()));
             idiomaLabel.setText(item.getIdioma());
             dataDePublicacaoLabel.setText(item.getDataDePublicacao());
             numeroDePaginasLabel.setText(Integer.toString(item.getNumeroDePaginas()));
             codigoDeBarrasLabel.setText(Integer.toString(item.getCodigoDeBarras()));
+            if (item instanceof Livro) {
+                formatoLabel.setText(((Livro) item).getFormato());
+            } else {
+                formatoLabel.setText("Não aplicável");
+            }
             precoLabel.setText(java.text.NumberFormat.getCurrencyInstance().format(item.getPreco()));
+            quantidadeLabel.setText(item.getQuantidade().toString());
         } else {
             // item is null, remove all the text.
-            nomeLabel.setText("");
+            tituloLabel.setText("");
             editoraLabel.setText("");
             edicaoLabel.setText("");
             idiomaLabel.setText("");
             dataDePublicacaoLabel.setText("");
             numeroDePaginasLabel.setText("");
             codigoDeBarrasLabel.setText("");
-            precoLabel.setText("");
             formatoLabel.setText("");
+            precoLabel.setText("");
+            quantidadeLabel.setText("");
         }
     }
 
@@ -198,20 +230,9 @@ public class LivrariaController {
 
     @FXML
     private void handleComprar() {
+        Item item = tabelaItens.getSelectionModel().getSelectedItem();
+
+        mainApp.mostrarFinarlizaCompra(item);
         System.out.println("Você apertou o comprar");
-        Item item = itemTableItens.getSelectionModel().selectedItemProperty().get();
-        
-        mainApp.showComprar(item);
-    }
-
-    /**
-     * Is called by the main application to give a reference back to itself.
-     *
-     * @param mainApp
-     */
-    public void setMainApp(LivrariaPrincipal mainApp) {
-        this.mainApp = mainApp;
-
-        filialComboBox.setItems(mainApp.getComboBoxData());
     }
 }

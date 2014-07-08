@@ -1,7 +1,6 @@
 package javafxlivraria.model;
 
 import javafxlivraria.exception.EstoqueEsgotadoException;
-import java.util.*;
 
 public class Teste {
     public static void main(String[] args) throws EstoqueEsgotadoException {
@@ -36,10 +35,10 @@ public class Teste {
         //Vendedor vendedor1 = new Vendedor("Juliano Pereira", "10/10/1980", "11/11/2011", 120, endereco4);
 
         Livro livro1 =
-            new Livro("Livro das Abelhas", "Editora Europa", 1, "Portugues", "05/05/2014", 230, 111111, 50, "Capa Dura");
+            new Livro("Livro das Abelhas", "Editora Europa", 1, "Portugues", "05/05/2014", 230, 111111, 50.0, "Capa Dura");
         Livro livro2 =
             new Livro("O Senhor dos Anéis - Volume Único", "Editora Atlas", 10, "Portugues", "09/04/2013", 690, 222222,
-                      150, "Capa Comum");
+                      150.0, "Capa Comum");
 
         /*Jornal jornal1 =
             new Jornal("O Estado de Minas", "O Estado de Minas", 545454, "Português", "05/10/2013", 50, 22222222, 2,

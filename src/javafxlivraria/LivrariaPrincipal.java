@@ -2,7 +2,6 @@ package javafxlivraria;
 
 import java.io.IOException;
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
@@ -22,8 +21,8 @@ import javafxlivraria.model.Item;
 import javafxlivraria.model.Jornal;
 import javafxlivraria.model.Livro;
 import javafxlivraria.model.Revista;
-import javafxlivraria.view.CompraController;
-import javafxlivraria.view.LivrariaController;
+import javafxlivraria.view.EscolheProdutosController;
+import javafxlivraria.view.FinalizaCompraController;
 
 /**
  *
@@ -33,11 +32,10 @@ public class LivrariaPrincipal extends Application {
 
     private Stage primaryStage;
     private BorderPane rootLayout;
-    private ObservableList<Livro> livroData = FXCollections.observableArrayList();
-    private ObservableList<Revista> revistaData = FXCollections.observableArrayList();
-    private ObservableList<Filial> filialComboBoxData = FXCollections.observableArrayList();
-    private ObservableList<Cliente> clienteComboBoxData = FXCollections.observableArrayList();
-    private ObservableList<StringProperty> formaPagamentoComboBoxData = FXCollections.observableArrayList();
+
+    private final ObservableList<Filial> filialComboBoxData = FXCollections.observableArrayList();
+    private final ObservableList<Cliente> clienteComboBoxData = FXCollections.observableArrayList();
+    private final ObservableList<StringProperty> formaPagamentoComboBoxData = FXCollections.observableArrayList();
 
     public LivrariaPrincipal() {
 
@@ -46,31 +44,31 @@ public class LivrariaPrincipal extends Application {
         estoques[1] = new Estoque();
 
         Livro[] livros = new Livro[5];
-        livros[0] = new Livro("Livro das Abelhas", "Editora Europa", 1, "Portugues", "05/05/2014", 230, 111111, 50, "Capa Dura");
-        livros[1] = new Livro("O Senhor dos Anéis - Volume Único", "Editora Atlas", 10, "Portugues", "09/04/2013", 690, 222222, 150, "Capa Comum");
-        livros[2] = new Livro("Razão e Sensibilidade", "Editora Vilarinho", 3, "Inglês", "25/10/2003", 390, 333333, 50, "Capa Comum");
-        livros[3] = new Livro("Java - Como Programar", "Deitel e Deitel Editora", 9, "Portugues", "11/07/2013", 1040, 4546546, 125, "Capa Comum");
-        livros[4] = new Livro("C++ Completo e Total", "Editora Saraiva", 10, "Portugues", "15/04/2010", 560, 99999999, 100, "Capa Dura");
+        livros[0] = new Livro("Livro das Abelhas", "Editora Europa", 1, "Portugues", "05/05/2014", 230, 111111, 50.0, "Capa Dura");
+        livros[1] = new Livro("O Senhor dos Anéis - Volume Único", "Editora Atlas", 10, "Portugues", "09/04/2013", 690, 222222, 150.0, "Capa Comum");
+        livros[2] = new Livro("Razão e Sensibilidade", "Editora Vilarinho", 3, "Inglês", "25/10/2003", 390, 333333, 50.0, "Capa Comum");
+        livros[3] = new Livro("Java - Como Programar", "Deitel e Deitel Editora", 9, "Portugues", "11/07/2013", 1040, 4546546, 125.0, "Capa Comum");
+        livros[4] = new Livro("C++ Completo e Total", "Editora Saraiva", 10, "Portugues", "15/04/2010", 560, 99999999, 100.0, "Capa Dura");
 
         Revista[] revistas = new Revista[2];
-        revistas[0] = new Revista("Claudia", "Abril", 4343, "Português", "Abril 2014", 3434, 24242, 15);
-        revistas[1] = new Revista("Info", "Abril", 2554, "Português", "Julho 2014", 232, 656, 15);
+        revistas[0] = new Revista("Claudia", "Abril", 4343, "Português", "Abril 2014", 3434, 24242, 15.0);
+        revistas[1] = new Revista("Info", "Abril", 2554, "Português", "Julho 2014", 232, 656, 15.0);
 
         Jornal[] jornais = new Jornal[2];
-        jornais[0] = new Jornal("O Estado de Minas", "O Estado de Minas", 545454, "Português", "05/10/2013", 50, 22222222, 2);
-        jornais[1] = new Jornal("O Estado de São Paulo", "O Estado de São Paulo", 556784, "Português", "10/05/2014", 10, 565646, 3);
+        jornais[0] = new Jornal("O Estado de Minas", "O Estado de Minas", 545454, "Português", "05/10/2013", 50, 22222222, 2.0);
+        jornais[1] = new Jornal("O Estado de São Paulo", "O Estado de São Paulo", 556784, "Português", "10/05/2014", 10, 565646, 3.0);
 
-        estoques[0].cadastraItem(livros[0]);
-        estoques[0].cadastraItem(livros[1]);
-        estoques[0].cadastraItem(livros[2]);
-        estoques[1].cadastraItem(livros[3]);
-        estoques[1].cadastraItem(livros[4]);
+        estoques[0].cadastraItem(livros[0],5);
+        estoques[0].cadastraItem(livros[1],5);
+        estoques[0].cadastraItem(livros[2],5);
+        estoques[1].cadastraItem(livros[3],5);
+        estoques[1].cadastraItem(livros[4],5);
 
-        estoques[0].cadastraItem(revistas[0]);
-        estoques[1].cadastraItem(revistas[1]);
+        estoques[0].cadastraItem(revistas[0],5);
+        estoques[1].cadastraItem(revistas[1],5);
 
-        estoques[0].cadastraItem(jornais[0]);
-        estoques[1].cadastraItem(jornais[1]);
+        estoques[0].cadastraItem(jornais[0],5);
+        estoques[1].cadastraItem(jornais[1],5);
 
         Endereco[] enderecosClientes = new Endereco[4];
 
@@ -106,14 +104,6 @@ public class LivrariaPrincipal extends Application {
         formaPagamentoComboBoxData.add(new SimpleStringProperty("Cartão de Débito"));
     }
 
-    public ObservableList<Livro> getItemData() {
-        return livroData;
-    }
-
-    public ObservableList<Revista> getRevistaData() {
-        return revistaData;
-    }
-
     public ObservableList<Filial> getComboBoxData() {
         return filialComboBoxData;
     }
@@ -131,15 +121,15 @@ public class LivrariaPrincipal extends Application {
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("Livraria");
 
-        initRootLayout();
+        mostrarRootLayout();
 
-        showLivraria();
+        mostrarLivraria();
     }
 
     /**
-     * Initializes the root layout.
+     * Inicializa o layout principal
      */
-    public void initRootLayout() {
+    public void mostrarRootLayout() {
         try {
             // Load root layout from fxml file.
             FXMLLoader loader = new FXMLLoader();
@@ -155,18 +145,18 @@ public class LivrariaPrincipal extends Application {
         }
     }
 
-    public void showLivraria() {
+    public void mostrarLivraria() {
         try {
             // Load person overview.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(LivrariaPrincipal.class.getResource("view/Livraria.fxml"));
+            loader.setLocation(LivrariaPrincipal.class.getResource("view/EscolheProdutos.fxml"));
             AnchorPane livraria = (AnchorPane) loader.load();
 
             // Set person overview into the center of root layout.
             rootLayout.setCenter(livraria);
 
             // Give the controller access to the main app.
-            LivrariaController controller = loader.getController();
+            EscolheProdutosController controller = loader.getController();
             controller.setMainApp(this);
 
         } catch (IOException e) {
@@ -174,33 +164,31 @@ public class LivrariaPrincipal extends Application {
         }
     }
 
-    public boolean showComprar(Item item) {
+    public void mostrarFinarlizaCompra(Item item) {
         try {
             // Load the fxml file and create a new stage for the popup dialog.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(LivrariaPrincipal.class.getResource("view/Compra.fxml"));
+            loader.setLocation(LivrariaPrincipal.class.getResource("view/FinalizaCompra.fxml"));
             AnchorPane page = (AnchorPane) loader.load();
 
             // Create the dialog Stage.
             Stage dialogStage = new Stage();
-            dialogStage.setTitle("Efetuar Compra");
+            dialogStage.setTitle("Finalizar compra");
             dialogStage.initModality(Modality.WINDOW_MODAL);
             dialogStage.initOwner(primaryStage);
             Scene scene = new Scene(page);
             dialogStage.setScene(scene);
 
             // Set the person into the controller.
-            CompraController controller = loader.getController();
+            FinalizaCompraController controller = loader.getController();
             controller.setDialogStage(dialogStage);
             controller.setMainApp(this);
 
             // Show the dialog and wait until the user closes it
             dialogStage.showAndWait();
 
-            return controller.isConcluirClicked();
         } catch (IOException e) {
             e.printStackTrace();
-            return false;
         }
     }
 

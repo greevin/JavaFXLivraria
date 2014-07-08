@@ -23,39 +23,35 @@ import javafxlivraria.model.Item;
  *
  * @author glauber
  */
-public class CompraController {
+public class FinalizaCompraController {
+
+    private Stage dialogStage;
+    private LivrariaPrincipal mainApp;
+
+    @FXML
+    private TableView<Item> tabelaCarrinho;
+    @FXML
+    private TableColumn<Item, String> tituloColunaCarrinho;
+    @FXML
+    private TableColumn<Item, String> precoColunaCarrinho;
+    @FXML
+    private TableColumn<Item, String> quantidadeColunaCarrinho;
+    @FXML
+    private TableColumn<Item, String> totalColunaCarrinho;
 
     @FXML
     private ComboBox<Cliente> clienteComboBox;
-
-    @FXML
-    private ComboBox<StringProperty> formaPagamentoComboBox;
-
     @FXML
     private Label enderecoFaturamentoLabel;
-
     @FXML
     private Label enderecoEntregaLabel;
 
     @FXML
+    private ComboBox<StringProperty> formaPagamentoComboBox;
+    @FXML
     private Label precoTotalLabel;
-
     @FXML
-    private TextField quantidadeTextField;
-
-    @FXML
-    private TextField numeroParcelasTextField;
-    
-    @FXML
-    private TableView<Item> itemTableItens;
-    @FXML
-    private TableColumn<Item, String> tituloItemColuna;
-    @FXML
-    private TableColumn<Item, String> precoItemColuna;
-
-    private Stage dialogStage;
-    private boolean concluirClicked = false;
-    private LivrariaPrincipal mainApp;
+    private ComboBox<StringProperty> parcelasCreditoComboBox;
 
     /**
      * Initializes the controller class. This method is automatically called
@@ -64,7 +60,7 @@ public class CompraController {
     @FXML
     private void initialize() {
 
-        showClienteDetails(null);
+        preencheDetalhesCliente(null);
 
         clienteComboBox.setCellFactory((comboBox) -> {
             return new ListCell<Cliente>() {
@@ -99,12 +95,12 @@ public class CompraController {
 
         clienteComboBox.setOnAction((event) -> {
             Cliente selectedCliente = clienteComboBox.getSelectionModel().getSelectedItem();
-            showClienteDetails(selectedCliente);
+            preencheDetalhesCliente(selectedCliente);
 
         });
     }
 
-    private void showClienteDetails(Cliente cliente) {
+    private void preencheDetalhesCliente(Cliente cliente) {
         if (cliente != null) {
             // Fill the labels with info from the person object.
             enderecoFaturamentoLabel.setText(cliente.getEnderecoDeFaturamento().getCidade());
@@ -115,42 +111,25 @@ public class CompraController {
             enderecoEntregaLabel.setText("");
         }
     }
-    
-    private void preencheTabela(Cliente cliente){
-        // Listen for selection changes and show the person details when changed.
-        clienteComboBox.getSelectionModel().selectedItemProperty().addListener(
-                (observable, oldValue, newValue) -> showClienteDetails(newValue));
-    }
+//    
+//    private void preencheTabela(Cliente cliente){
+//        // Listen for selection changes and show the person details when changed.
+//        clienteComboBox.getSelectionModel().selectedItemProperty().addListener(
+//                (observable, oldValue, newValue) -> preencheDetalhesCliente(newValue));
+//    }
 
     public void setDialogStage(Stage dialogStage) {
         this.dialogStage = dialogStage;
     }
 
     @FXML
-    private void handleCancel() {
+    private void handleCancelarCompra() {
         dialogStage.close();
     }
 
     @FXML
-    private void handleConcluir() {
-        if (isInputValid()) {
+    private void handleConcluirCompra() {
 
-            concluirClicked = true;
-            dialogStage.close();
-        }
-    }
-
-    /**
-     * Returns true if the user clicked OK, false otherwise.
-     *
-     * @return
-     */
-    public boolean isConcluirClicked() {
-        return concluirClicked;
-    }
-
-    private boolean isInputValid() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     public void setMainApp(LivrariaPrincipal mainApp) {

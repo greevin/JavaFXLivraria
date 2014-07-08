@@ -15,11 +15,43 @@ import javafx.beans.property.StringProperty;
  */
 public class Livro extends Item {
     
-    private StringProperty formato;
+    private final StringProperty formato;
 
-    public Livro(String nome, String editora, int edicao, String idioma, String dataDePublicacao,
-                   int numeroDePaginas, int codigoDeBarras, double preco, String formato) {
+    
+    /**
+     *
+     * @param nome
+     * @param editora
+     * @param edicao
+     * @param idioma
+     * @param dataDePublicacao
+     * @param numeroDePaginas
+     * @param codigoDeBarras
+     * @param preco
+     * @param formato
+     */
+    public Livro(String nome, String editora, Integer edicao, String idioma, String dataDePublicacao,
+                   Integer numeroDePaginas, Integer codigoDeBarras, Double preco, String formato) {
         super(nome, editora, edicao, idioma, dataDePublicacao, numeroDePaginas, codigoDeBarras, preco);
+        this.formato = new SimpleStringProperty(formato);
+    }
+    
+    /**
+     *
+     * @param nome
+     * @param editora
+     * @param edicao
+     * @param idioma
+     * @param dataDePublicacao
+     * @param numeroDePaginas
+     * @param codigoDeBarras
+     * @param preco
+     * @param formato
+     * @param quantidade
+     */
+    public Livro(String nome, String editora, Integer edicao, String idioma, String dataDePublicacao,
+                   Integer numeroDePaginas, Integer codigoDeBarras, Double preco, String formato, Integer quantidade) {
+        super(nome, editora, edicao, idioma, dataDePublicacao, numeroDePaginas, codigoDeBarras, preco, quantidade);
         this.formato = new SimpleStringProperty(formato);
     }
 
@@ -37,6 +69,10 @@ public class Livro extends Item {
         this.formato.set(formato);
     }
     
+    /**
+     *
+     * @return
+     */
     public String getFormato(){
         return formato.get();
     }
