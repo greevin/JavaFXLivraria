@@ -1,6 +1,8 @@
 package javafxlivraria;
 
+import java.io.File;
 import java.io.IOException;
+import java.util.prefs.Preferences;
 import javafx.application.Application;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -17,12 +19,19 @@ import javafxlivraria.model.Endereco;
 import javafxlivraria.model.Estoque;
 import javafxlivraria.model.Filial;
 import javafxlivraria.model.Gerente;
-import javafxlivraria.model.Item;
+import javafxlivraria.model.ItemCarrinho;
 import javafxlivraria.model.Jornal;
 import javafxlivraria.model.Livro;
 import javafxlivraria.model.Revista;
+import javafxlivraria.view.ClienteListWrapper;
 import javafxlivraria.view.EscolheProdutosController;
+import javafxlivraria.view.EstoqueListWrapper;
 import javafxlivraria.view.FinalizaCompraController;
+import javafxlivraria.view.RootLayoutController;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
+import org.controlsfx.dialog.Dialogs;
 
 /**
  *
@@ -35,8 +44,12 @@ public class LivrariaPrincipal extends Application {
 
     private final ObservableList<Filial> filialComboBoxData = FXCollections.observableArrayList();
     private final ObservableList<Cliente> clienteComboBoxData = FXCollections.observableArrayList();
-    private final ObservableList<StringProperty> formaPagamentoComboBoxData = FXCollections.observableArrayList();
+    private final ObservableList<String> formaPagamentoComboBoxData = FXCollections.observableArrayList();
+    private final ObservableList<String> parcelasCartaoDeCreditoComboBoxData = FXCollections.observableArrayList();
 
+    /**
+     *
+     */
     public LivrariaPrincipal() {
 
         Estoque[] estoques = new Estoque[2];
@@ -58,17 +71,17 @@ public class LivrariaPrincipal extends Application {
         jornais[0] = new Jornal("O Estado de Minas", "O Estado de Minas", 545454, "Português", "05/10/2013", 50, 22222222, 2.0);
         jornais[1] = new Jornal("O Estado de São Paulo", "O Estado de São Paulo", 556784, "Português", "10/05/2014", 10, 565646, 3.0);
 
-        estoques[0].cadastraItem(livros[0],5);
-        estoques[0].cadastraItem(livros[1],5);
-        estoques[0].cadastraItem(livros[2],5);
-        estoques[1].cadastraItem(livros[3],5);
-        estoques[1].cadastraItem(livros[4],5);
+        estoques[0].cadastraItem(livros[0], 5);
+        estoques[0].cadastraItem(livros[1], 5);
+        estoques[0].cadastraItem(livros[2], 5);
+        estoques[1].cadastraItem(livros[3], 5);
+        estoques[1].cadastraItem(livros[4], 5);
 
-        estoques[0].cadastraItem(revistas[0],5);
-        estoques[1].cadastraItem(revistas[1],5);
+        estoques[0].cadastraItem(revistas[0], 5);
+        estoques[1].cadastraItem(revistas[1], 5);
 
-        estoques[0].cadastraItem(jornais[0],5);
-        estoques[1].cadastraItem(jornais[1],5);
+        estoques[0].cadastraItem(jornais[0], 5);
+        estoques[1].cadastraItem(jornais[1], 5);
 
         Endereco[] enderecosClientes = new Endereco[4];
 
@@ -99,22 +112,24 @@ public class LivrariaPrincipal extends Application {
 
         clienteComboBoxData.addAll(clientes);
 
-        formaPagamentoComboBoxData.add(new SimpleStringProperty("Dinheiro"));
-        formaPagamentoComboBoxData.add(new SimpleStringProperty("Cartão de Crédito"));
-        formaPagamentoComboBoxData.add(new SimpleStringProperty("Cartão de Débito"));
+        formaPagamentoComboBoxData.add( "Dinheiro");
+        formaPagamentoComboBoxData.add("Cartão de Crédito");
+        formaPagamentoComboBoxData.add("Cartão de Débito");
+        
+        parcelasCartaoDeCreditoComboBoxData.setAll("1","2","3");
     }
 
     public ObservableList<Filial> getComboBoxData() {
         return filialComboBoxData;
     }
-
-    public ObservableList<StringProperty> getFormaPagamentoComboBoxData() {
-        return formaPagamentoComboBoxData;
-    }
-
-    public ObservableList<Cliente> getClienteComboBoxData() {
-        return clienteComboBoxData;
-    }
+//    
+//    public ObservableList<StringProperty> getFormaPagamentoComboBoxData() {
+//        return formaPagamentoComboBoxData;
+//    }
+//    
+//    public ObservableList<Cliente> getClienteComboBoxData() {
+//        return clienteComboBoxData;
+//    }
 
     @Override
     public void start(Stage primaryStage) {
@@ -139,6 +154,11 @@ public class LivrariaPrincipal extends Application {
             // Show the scene containing the root layout.
             Scene scene = new Scene(rootLayout);
             primaryStage.setScene(scene);
+
+            // Give the controller access to the main app.
+            RootLayoutController controller = loader.getController();
+            controller.setMainApp(this);
+
             primaryStage.show();
         } catch (IOException e) {
             e.printStackTrace();
@@ -152,19 +172,20 @@ public class LivrariaPrincipal extends Application {
             loader.setLocation(LivrariaPrincipal.class.getResource("view/EscolheProdutos.fxml"));
             AnchorPane livraria = (AnchorPane) loader.load();
 
-            // Set person overview into the center of root layout.
+            // Coloca este layout no centro do layout principal
             rootLayout.setCenter(livraria);
 
-            // Give the controller access to the main app.
+            // Give the controller access to the main app and set data inside controller.
             EscolheProdutosController controller = loader.getController();
             controller.setMainApp(this);
+            controller.setFiliais(filialComboBoxData);
 
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public void mostrarFinarlizaCompra(Item item) {
+    public void mostrarFinarlizaCompra(ObservableList<ItemCarrinho> carrinho) {
         try {
             // Load the fxml file and create a new stage for the popup dialog.
             FXMLLoader loader = new FXMLLoader();
@@ -179,16 +200,170 @@ public class LivrariaPrincipal extends Application {
             Scene scene = new Scene(page);
             dialogStage.setScene(scene);
 
-            // Set the person into the controller.
+            // Set data into the controller.
             FinalizaCompraController controller = loader.getController();
             controller.setDialogStage(dialogStage);
             controller.setMainApp(this);
+            controller.setCarrinhoDeCompras(carrinho);
+            controller.setCliente(clienteComboBoxData);
+            controller.setFormasDePagamento(formaPagamentoComboBoxData);
+            controller.setParcelasCredito(parcelasCartaoDeCreditoComboBoxData);
 
             // Show the dialog and wait until the user closes it
             dialogStage.showAndWait();
 
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    /**
+     * Returns the person file preference, i.e. the file that was last opened.
+     * The preference is read from the OS specific registry. If no such
+     * preference can be found, null is returned.
+     *
+     * @return
+     */
+    public File getPersonFilePath() {
+        Preferences prefs = Preferences.userNodeForPackage(LivrariaPrincipal.class);
+        String filePath = prefs.get("filePath", null);
+        if (filePath != null) {
+            return new File(filePath);
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * Sets the file path of the currently loaded file. The path is persisted in
+     * the OS specific registry.
+     *
+     * @param file the file or null to remove the path
+     */
+    public void setPersonFilePath(File file) {
+        Preferences prefs = Preferences.userNodeForPackage(LivrariaPrincipal.class);
+        if (file != null) {
+            prefs.put("filePath", file.getPath());
+
+            // Update the stage title.
+            primaryStage.setTitle("Livraria - " + file.getName());
+        } else {
+            prefs.remove("filePath");
+
+            // Update the stage title.
+            primaryStage.setTitle("Livraria");
+        }
+    }
+
+    public void loadClienteDataFromFile(File file) {
+        try {
+            JAXBContext context = JAXBContext
+                    .newInstance(ClienteListWrapper.class);
+            Unmarshaller um = context.createUnmarshaller();
+
+            // Reading XML from the file and unmarshalling.
+            ClienteListWrapper wrapper = (ClienteListWrapper) um.unmarshal(file);
+
+            clienteComboBoxData.clear();
+            clienteComboBoxData.addAll(wrapper.getClientes());
+
+            // Save the file path to the registry.
+            setPersonFilePath(file);
+
+        } catch (Exception e) { // catches ANY exception
+            Dialogs.create()
+                    .title("Error")
+                    .masthead("Could not load data from file:\n" + file.getPath())
+                    .showException(e);
+        }
+    }
+
+    public void savePersonDataToFile(File file) {
+        try {
+            JAXBContext context = JAXBContext
+                    .newInstance(ClienteListWrapper.class);
+            Marshaller m = context.createMarshaller();
+            m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+
+            // Wrapping our person data.
+            ClienteListWrapper wrapper = new ClienteListWrapper();
+            wrapper.setClientes(clienteComboBoxData);
+
+            // Marshalling and saving XML to the file.
+            m.marshal(wrapper, file);
+
+            // Save the file path to the registry.
+            setPersonFilePath(file);
+        } catch (Exception e) { // catches ANY exception
+            Dialogs.create().title("Error")
+                    .masthead("Could not save data to file:\n" + file.getPath())
+                    .showException(e);
+        }
+    }
+    
+         /* Sets the file path of the currently loaded file. The path is persisted in
+     * the OS specific registry.
+     *
+     * @param file the file or null to remove the path
+     */
+    public void setEstoqueFilePath(File file) {
+        Preferences prefs = Preferences.userNodeForPackage(LivrariaPrincipal.class);
+        if (file != null) {
+            prefs.put("filePath", file.getPath());
+
+            // Update the stage title.
+            primaryStage.setTitle("Livraria - " + file.getName());
+        } else {
+            prefs.remove("filePath");
+
+            // Update the stage title.
+            primaryStage.setTitle("Livraria");
+        }
+    }
+
+    public void loadEstoqueDataFromFile(File file) {
+        try {
+            JAXBContext context = JAXBContext
+                    .newInstance(EstoqueListWrapper.class);
+            Unmarshaller um = context.createUnmarshaller();
+
+            // Reading XML from the file and unmarshalling.
+            EstoqueListWrapper wrapper = (EstoqueListWrapper) um.unmarshal(file);
+
+            filialComboBoxData.clear();
+            filialComboBoxData.addAll(wrapper.getFilial());
+
+            // Save the file path to the registry.
+            setPersonFilePath(file);
+
+        } catch (Exception e) { // catches ANY exception
+            Dialogs.create()
+                    .title("Error")
+                    .masthead("Could not load data from file:\n" + file.getPath())
+                    .showException(e);
+        }
+    }
+
+    public void saveEstoqueDataToFile(File file) {
+        try {
+            JAXBContext context = JAXBContext
+                    .newInstance(EstoqueListWrapper.class);
+            Marshaller m = context.createMarshaller();
+            m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+
+            // Wrapping our person data.
+            EstoqueListWrapper wrapper = new EstoqueListWrapper();
+            wrapper.setEstoque(filialComboBoxData);
+
+            // Marshalling and saving XML to the file.
+            m.marshal(wrapper, file);
+
+            // Save the file path to the registry.
+            setPersonFilePath(file);
+        } catch (Exception e) { // catches ANY exception
+            Dialogs.create().title("Error")
+                    .masthead("Could not save data to file:\n" + file.getPath())
+                    .showException(e);
         }
     }
 
@@ -201,8 +376,11 @@ public class LivrariaPrincipal extends Application {
         return primaryStage;
     }
 
+    /**
+     *
+     * @param args
+     */
     public static void main(String[] args) {
         launch(args);
-
     }
 }

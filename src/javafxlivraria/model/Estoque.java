@@ -45,7 +45,7 @@ public class Estoque {
         } else {
             throw new ItemNaoCadastradoException();
         }
-        System.out.println("Quantidade Total do " + item.getNome() + " em estoque: " + item.getQuantidade());
+        System.out.println("Quantidade Total do " + item.getTitulo() + " em estoque: " + item.getQuantidade());
     }
 
     /**
@@ -69,7 +69,7 @@ public class Estoque {
         } else {
             throw new ItemNaoCadastradoException();
         }
-        System.out.println("Quantidade Total do " + item.getNome() + " em estoque após remover: " + item.getQuantidade());
+        System.out.println("Quantidade Total do " + item.getTitulo() + " em estoque após remover: " + item.getQuantidade());
     }
 
     /**

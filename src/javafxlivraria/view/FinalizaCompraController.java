@@ -5,23 +5,25 @@
  */
 package javafxlivraria.view;
 
-import javafx.beans.property.StringProperty;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 import javafxlivraria.LivrariaPrincipal;
 import javafxlivraria.model.Cliente;
-import javafxlivraria.model.Item;
+import javafxlivraria.model.ItemCarrinho;
 
 /**
  *
- * @author glauber
+ * @author casn
  */
 public class FinalizaCompraController {
 
@@ -29,15 +31,15 @@ public class FinalizaCompraController {
     private LivrariaPrincipal mainApp;
 
     @FXML
-    private TableView<Item> tabelaCarrinho;
+    private TableView<ItemCarrinho> tabelaCarrinho;
     @FXML
-    private TableColumn<Item, String> tituloColunaCarrinho;
+    private TableColumn<ItemCarrinho, String> tituloColunaCarrinho;
     @FXML
-    private TableColumn<Item, String> precoColunaCarrinho;
+    private TableColumn<ItemCarrinho, String> precoColunaCarrinho;
     @FXML
-    private TableColumn<Item, String> quantidadeColunaCarrinho;
+    private TableColumn<ItemCarrinho, String> unidadesColunaCarrinho;
     @FXML
-    private TableColumn<Item, String> totalColunaCarrinho;
+    private TableColumn<ItemCarrinho, String> totalColunaCarrinho;
 
     @FXML
     private ComboBox<Cliente> clienteComboBox;
@@ -47,11 +49,11 @@ public class FinalizaCompraController {
     private Label enderecoEntregaLabel;
 
     @FXML
-    private ComboBox<StringProperty> formaPagamentoComboBox;
+    private ComboBox<String> formasPagamentoComboBox;
     @FXML
     private Label precoTotalLabel;
     @FXML
-    private ComboBox<StringProperty> parcelasCreditoComboBox;
+    private ComboBox<String> parcelasCreditoComboBox;
 
     /**
      * Initializes the controller class. This method is automatically called
@@ -98,6 +100,26 @@ public class FinalizaCompraController {
             preencheDetalhesCliente(selectedCliente);
 
         });
+
+        tituloColunaCarrinho.setCellValueFactory(
+                cellData -> cellData.getValue().tituloProperty());
+        precoColunaCarrinho.setCellValueFactory(
+                cellData -> cellData.getValue().precoProperty().asString());
+        unidadesColunaCarrinho.setCellValueFactory(
+                cellData -> new SimpleStringProperty(cellData.getValue().getUnidades().toString()));
+        totalColunaCarrinho.setCellValueFactory(
+                cellData -> new SimpleStringProperty(cellData.getValue().getTotal().toString()));
+
+        tabelaCarrinho.getSelectionModel().selectedItemProperty().addListener(
+                (observable, oldValue, newValue) -> {
+                    Double precoTotal = 0.0;
+                    for (ItemCarrinho carrinho : tabelaCarrinho.getItems()) {
+                        precoTotal += carrinho.getPreco() * carrinho.getUnidades();
+                    }
+                    NumberFormat df = DecimalFormat.getCurrencyInstance();
+                    precoTotalLabel.setText(NumberFormat.getCurrencyInstance().format(precoTotal));
+                });
+
     }
 
     private void preencheDetalhesCliente(Cliente cliente) {
@@ -135,8 +157,23 @@ public class FinalizaCompraController {
     public void setMainApp(LivrariaPrincipal mainApp) {
         this.mainApp = mainApp;
 
-        formaPagamentoComboBox.setItems(mainApp.getFormaPagamentoComboBoxData());
-        clienteComboBox.setItems(mainApp.getClienteComboBoxData());
+//        formaPagamentoComboBox.setItems(mainApp.getFormaPagamentoComboBoxData());
+//        clienteComboBox.setItems(mainApp.getClienteComboBoxData());
     }
 
+    public void setCarrinhoDeCompras(ObservableList<ItemCarrinho> itensCarrinho) {
+        this.tabelaCarrinho.setItems(itensCarrinho);
+    }
+
+    public void setFormasDePagamento(ObservableList<String> formasDePagamento) {
+        formasPagamentoComboBox.setItems(formasDePagamento);
+    }
+
+    public void setCliente(ObservableList<Cliente> clientes) {
+        clienteComboBox.setItems(clientes);
+    }
+
+    public void setParcelasCredito(ObservableList<String> parcelasCredito) {
+        parcelasCreditoComboBox.setItems(parcelasCredito);
+    }
 }

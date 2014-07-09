@@ -26,7 +26,7 @@ public class Order {
                     int novaQtd = quantidade - quantidadeComprada;
                     itemPedido.setQuantidade(novaQtd);
                 } else {
-                    throw new EstoqueEsgotadoException("Livro " + itemPedido.getItem().getNome()
+                    throw new EstoqueEsgotadoException("Livro " + itemPedido.getItem().getTitulo()
                     + " sem estoque suficiente.");
                 }
     }

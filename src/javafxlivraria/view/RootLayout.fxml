@@ -25,7 +25,7 @@
                   <MenuItem mnemonicParsing="false" onAction="#handleExportarDados" text="Exportar dados" />
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" text="Ajuda">
+          <Menu mnemonicParsing="false" onAction="#handleSobre" text="Ajuda">
             <items>
               <MenuItem mnemonicParsing="false" onAction="#handleSobre" text="Sobre" />
             </items>

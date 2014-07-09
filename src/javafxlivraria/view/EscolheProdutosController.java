@@ -1,5 +1,7 @@
 package javafxlivraria.view;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -14,6 +16,7 @@ import javafx.util.StringConverter;
 import javafxlivraria.LivrariaPrincipal;
 import javafxlivraria.model.Filial;
 import javafxlivraria.model.Item;
+import javafxlivraria.model.ItemCarrinho;
 import javafxlivraria.model.Jornal;
 import javafxlivraria.model.Livro;
 import javafxlivraria.model.Revista;
@@ -71,15 +74,15 @@ public class EscolheProdutosController {
     private TextField quantidadeField;
 
     @FXML
-    private TableView<Item> tabelaCarrinho;
+    private TableView<ItemCarrinho> tabelaCarrinho;
     @FXML
-    private TableColumn<Item, String> tituloColunaCarrinho;
+    private TableColumn<ItemCarrinho, String> tituloColunaCarrinho;
     @FXML
-    private TableColumn<Item, String> precoColunaCarrinho;
+    private TableColumn<ItemCarrinho, String> precoColunaCarrinho;
     @FXML
-    private TableColumn<Item, String> quantidadeColunaCarrinho;
+    private TableColumn<ItemCarrinho, String> unidadesColunaCarrinho;
     @FXML
-    private TableColumn<Item, String> totalColunaCarrinho;
+    private TableColumn<ItemCarrinho, String> totalColunaCarrinho;
 
     /**
      * The constructor. The constructor is called before the initialize()
@@ -95,8 +98,14 @@ public class EscolheProdutosController {
      */
     public void setMainApp(LivrariaPrincipal mainApp) {
         this.mainApp = mainApp;
+    }
 
-        filialComboBox.setItems(mainApp.getComboBoxData());
+    /**
+     *
+     * @param filiais
+     */
+    public void setFiliais(ObservableList<Filial> filiais) {
+        filialComboBox.setItems(filiais);
     }
 
     /**
@@ -148,13 +157,6 @@ public class EscolheProdutosController {
             preencheTabelaItens(selectedFilial);
 
         });
-    }
-
-    private void preencheTabelaItens(Filial filial) {
-        // Add observable list data to the table
-        ObservableList<Item> lista = FXCollections.observableArrayList();
-        lista.addAll(filial.getEstoque().getOversableListEstoqueDeItens());
-        tabelaItens.setItems(lista);
 
         // Initialize the table with the two columns.
         tipoColunaItens.setCellValueFactory(
@@ -171,7 +173,7 @@ public class EscolheProdutosController {
                 }
         );
         tituloColunaItens.setCellValueFactory(
-                cellData -> cellData.getValue().nomeProperty());
+                cellData -> cellData.getValue().tituloProperty());
 
         estoqueColunaItens.setCellValueFactory(
                 cellData -> new SimpleStringProperty(cellData.getValue().getQuantidade().toString()));
@@ -180,12 +182,29 @@ public class EscolheProdutosController {
         tabelaItens.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue) -> mostrarDetalhesItem(newValue));
 
+        tituloColunaCarrinho.setCellValueFactory(
+                cellData -> cellData.getValue().tituloProperty());
+        precoColunaCarrinho.setCellValueFactory(
+                cellData -> cellData.getValue().precoProperty().asString());
+        unidadesColunaCarrinho.setCellValueFactory(
+                cellData -> new SimpleStringProperty(cellData.getValue().getUnidades().toString()));
+        totalColunaCarrinho.setCellValueFactory(
+                cellData -> new SimpleStringProperty(cellData.getValue().getTotal().toString()));
+
+        quantidadeField.setText("1");
+    }
+
+    private void preencheTabelaItens(Filial filial) {
+        // Add observable list data to the table
+        ObservableList<Item> lista = FXCollections.observableArrayList();
+        lista.addAll(filial.getEstoque().getOversableListEstoqueDeItens());
+        tabelaItens.setItems(lista);
     }
 
     private void mostrarDetalhesItem(Item item) {
         if (item != null) {
             // Fill the labels with info from the item object.
-            tituloLabel.setText(item.getNome());
+            tituloLabel.setText(item.getTitulo());
             editoraLabel.setText(item.getEditora());
             edicaoLabel.setText(Integer.toString(item.getEdicao()));
             idiomaLabel.setText(item.getIdioma());
@@ -229,10 +248,34 @@ public class EscolheProdutosController {
     }
 
     @FXML
-    private void handleComprar() {
-        Item item = tabelaItens.getSelectionModel().getSelectedItem();
+    private void handleComprarProduto() {
+        Integer quantidadeSelecionada = Integer.parseInt(quantidadeField.getText());
+        ItemCarrinho novo = new ItemCarrinho(tabelaItens.getSelectionModel().getSelectedItem(), quantidadeSelecionada);
+        ObservableList<ItemCarrinho> lista = tabelaCarrinho.getItems();
+        if (lista.contains(novo)) {
+            ItemCarrinho old = lista.get(lista.indexOf(novo));
+            novo.aumentaUnidades(old.getUnidades());
+            lista.remove(old);
+            lista.add(novo);
+        } else {
+            lista.add(novo);
+        }
+        tituloColunaCarrinho.setSortType(TableColumn.SortType.ASCENDING);
+        // BUG do JavaFX
+        tabelaCarrinho.getColumns().get(0).setVisible(false);
+        tabelaCarrinho.getColumns().get(0).setVisible(true);
+        System.out.println("Você apertou o Comprar Produto");
+    }
 
-        mainApp.mostrarFinarlizaCompra(item);
-        System.out.println("Você apertou o comprar");
+    @FXML
+    private void handleFecharCompra() {
+        mainApp.mostrarFinarlizaCompra(tabelaCarrinho.getItems());
+        System.out.println("Você apertou o Fechar Compra");
+    }
+
+    @FXML
+    private void handleLimparCarrinho() {
+        tabelaCarrinho.getItems().clear();
+        System.out.println("Você apertou o Limpar Carrinho");
     }
 }

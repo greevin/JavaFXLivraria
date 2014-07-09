@@ -46,6 +46,6 @@ public class ItemPedido {
 */
     public String toString() {
         return String.format("\nSeu item: %s" + "\nPreço Unitário: %.2f" + "\nQuantidade: %d",
-                             item.getNome(), item.getPreco(), quantidade);
+                             item.getTitulo(), item.getPreco(), quantidade);
     }
 }

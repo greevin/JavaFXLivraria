@@ -22,7 +22,7 @@
                <columns>
                   <TableColumn fx:id="tituloColunaCarrinho" maxWidth="-1.0" minWidth="360.0" prefWidth="360.0" text="Título" />
                   <TableColumn fx:id="precoColunaCarrinho" maxWidth="-1.0" minWidth="80.0" text="Preço" />
-                  <TableColumn fx:id="quantidadeColunaCarrinho" maxWidth="-1.0" minWidth="80.0" text="Unidades" />
+                  <TableColumn fx:id="unidadesColunaCarrinho" maxWidth="-1.0" minWidth="80.0" text="Unidades" />
                   <TableColumn fx:id="totalColunaCarrinho" maxWidth="-1.0" minWidth="80.0" text="Total" />
                </columns>
             </TableView>
@@ -70,7 +70,7 @@
               </rowConstraints>
                <children>
                   <Label text="Forma de Pagamento:" />
-                  <ComboBox fx:id="formaPagamentoComboBox" prefHeight="26.0" prefWidth="297.0" GridPane.columnIndex="1" />
+                  <ComboBox fx:id="formasPagamentoComboBox" prefHeight="26.0" prefWidth="297.0" GridPane.columnIndex="1" />
                   <Label text="Preço Total:" GridPane.rowIndex="1" />
                   <Label fx:id="precoTotalLabel" text="R$ 0,0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <Label text="Quantidade de Parcelas:" GridPane.rowIndex="2" />

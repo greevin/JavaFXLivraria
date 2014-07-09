@@ -2,7 +2,6 @@ package javafxlivraria.model;
 
 import java.util.Objects;
 import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -15,7 +14,7 @@ import javafx.beans.property.StringProperty;
  */
 public class Item {
 
-    private final StringProperty nome;
+    private final StringProperty titulo;
     private final StringProperty editora;
     private final IntegerProperty edicao;
     private final StringProperty idioma;
@@ -54,7 +53,7 @@ public class Item {
      * @param quantidade
      */
     public Item(String nome, String editora, Integer edicao, String idioma, String dataDePublicacao, Integer numeroDePaginas, Integer codigoDeBarras, Double preco, Integer quantidade) {
-        this.nome = new SimpleStringProperty(nome);
+        this.titulo = new SimpleStringProperty(nome);
         this.editora = new SimpleStringProperty(editora);
         this.edicao = new SimpleIntegerProperty(edicao);
         this.idioma = new SimpleStringProperty(idioma);
@@ -65,27 +64,26 @@ public class Item {
         this.quantidade = new SimpleIntegerProperty(quantidade);
     }
 
-
     /**
      * @return the nome
      */
-    public String getNome() {
-        return nome.get();
+    public String getTitulo() {
+        return titulo.get();
     }
 
     /**
      * @param nome the nome to set
      */
-    public void setNome(String nome) {
-        this.nome.set(nome);
+    public void setTitulo(String nome) {
+        this.titulo.set(nome);
     }
 
     /**
      *
      * @return
      */
-    public StringProperty nomeProperty() {
-        return nome;
+    public StringProperty tituloProperty() {
+        return titulo;
     }
 
     /**
@@ -278,7 +276,7 @@ public class Item {
     @Override
     public int hashCode() {
         Integer hash = 3;
-        hash = 31 * hash + Objects.hashCode(this.nome);
+        hash = 31 * hash + Objects.hashCode(this.titulo);
         hash = 31 * hash + Objects.hashCode(this.editora);
         hash = 31 * hash + Objects.hashCode(this.edicao);
         hash = 31 * hash + Objects.hashCode(this.idioma);
@@ -297,7 +295,7 @@ public class Item {
             return false;
         }
         final Item other = (Item) obj;
-        if (!Objects.equals(this.nome, other.nome)) {
+        if (!Objects.equals(this.titulo, other.titulo)) {
             return false;
         }
         if (!Objects.equals(this.editora, other.editora)) {
@@ -319,5 +317,5 @@ public class Item {
             return false;
         }
         return true;
-    }
+    } 
 }
