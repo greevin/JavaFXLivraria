@@ -1,11 +1,12 @@
 package javafxlivraria.view;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
@@ -30,6 +31,13 @@ public class EscolheProdutosController {
     // Reference to the main application.
     private LivrariaPrincipal mainApp;
     private Object stage;
+
+    @FXML
+    private Button comprarProdutoButton;
+    @FXML
+    private Button limparCarrinhoButton;
+    @FXML
+    private Button finalizarCompraButton;
 
     @FXML
     private ComboBox<Filial> filialComboBox;
@@ -192,6 +200,21 @@ public class EscolheProdutosController {
                 cellData -> new SimpleStringProperty(cellData.getValue().getTotal().toString()));
 
         quantidadeField.setText("1");
+
+        //desabilita os botões "Comprar Produto", "Limpar Carrinho" e "Finalizar Comprar"
+        //quando não está mostrando nada na TableView. 
+        //O botão só é habilitado quando é selecionado um item.
+        comprarProdutoButton.setDisable(true);
+        limparCarrinhoButton.setDisable(true);
+        finalizarCompraButton.setDisable(true);
+        tabelaItens.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
+            if (tabelaItens.isFocused()) {
+                comprarProdutoButton.setDisable(false);
+                limparCarrinhoButton.setDisable(false);
+                finalizarCompraButton.setDisable(false);
+
+            }
+        });
     }
 
     private void preencheTabelaItens(Filial filial) {
@@ -269,8 +292,13 @@ public class EscolheProdutosController {
 
     @FXML
     private void handleFecharCompra() {
-        mainApp.mostrarFinarlizaCompra(tabelaCarrinho.getItems());
-        System.out.println("Você apertou o Fechar Compra");
+        if (tabelaCarrinho.getItems() == null) {
+            System.out.println("Não tem nada aqui. :/");
+        } else {
+            mainApp.mostrarFinarlizaCompra(tabelaCarrinho.getItems());
+            System.out.println("Você apertou o Fechar Compra");
+        }
+
     }
 
     @FXML

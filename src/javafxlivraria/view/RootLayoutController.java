@@ -6,7 +6,6 @@
 package javafxlivraria.view;
 
 import java.io.File;
-import javafx.application.Platform;
 import javafx.stage.FileChooser;
 import javafxlivraria.LivrariaPrincipal;
 import org.controlsfx.dialog.Dialogs;
@@ -30,7 +29,7 @@ public class RootLayoutController {
     }
 
     public void handleSair() {
-        Platform.exit();
+        System.exit(0);
     }
 
     public void handleImportarDados() {
@@ -65,7 +64,7 @@ public class RootLayoutController {
 
     public void handleSobre() {
         Dialogs.create()
-                .title("Livraria")
+                .title("LivrariaPOO")
                 .masthead("Sobre")
                 .message("Autor: Cícero Alexandrino")
                 .showInformation();

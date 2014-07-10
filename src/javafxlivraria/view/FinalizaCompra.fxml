@@ -72,7 +72,7 @@
                   <Label text="Forma de Pagamento:" />
                   <ComboBox fx:id="formasPagamentoComboBox" prefHeight="26.0" prefWidth="297.0" GridPane.columnIndex="1" />
                   <Label text="Preço Total:" GridPane.rowIndex="1" />
-                  <Label fx:id="precoTotalLabel" text="R$ 0,0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <Label fx:id="precoTotalLabel" text="R$ 0,00" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <Label text="Quantidade de Parcelas:" GridPane.rowIndex="2" />
                   <ComboBox fx:id="parcelasCreditoComboBox" prefHeight="26.0" prefWidth="297.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                </children>

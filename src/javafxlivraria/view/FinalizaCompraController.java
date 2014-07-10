@@ -20,6 +20,9 @@ import javafx.util.StringConverter;
 import javafxlivraria.LivrariaPrincipal;
 import javafxlivraria.model.Cliente;
 import javafxlivraria.model.ItemCarrinho;
+import org.controlsfx.control.action.Action;
+import org.controlsfx.dialog.Dialog;
+import org.controlsfx.dialog.Dialogs;
 
 /**
  *
@@ -146,12 +149,26 @@ public class FinalizaCompraController {
 
     @FXML
     private void handleCancelarCompra() {
-        dialogStage.close();
+        Action response = Dialogs.create()
+                .title("Cancelar Comprar")
+                .message("Deseja cancelar essa compra?")
+                .showConfirm();
+
+        if (response == Dialog.Actions.YES) {
+            dialogStage.close();
+        } else {
+            dialogStage.show();
+        }
+
     }
 
     @FXML
     private void handleConcluirCompra() {
-
+        Dialogs.create()
+                .title("Compra Finalizada")
+                .message("Compra Finalizada")
+                .showInformation();
+        dialogStage.close();
     }
 
     public void setMainApp(LivrariaPrincipal mainApp) {

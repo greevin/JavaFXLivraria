@@ -103,7 +103,7 @@
                         <Insets left="10.0" right="30.0" />
                      </HBox.margin>
                   </TextField>
-                  <Button mnemonicParsing="false" onAction="#handleComprarProduto" text="Comprar produto" />
+                  <Button fx:id="comprarProdutoButton" mnemonicParsing="false" onAction="#handleComprarProduto" text="Comprar produto" />
                </children>
             </HBox>
             <Separator prefWidth="200.0" />
@@ -125,11 +125,11 @@
             </TableView>
             <HBox alignment="CENTER_RIGHT">
                <children>
-                  <Button mnemonicParsing="false" onAction="#handleLimparCarrinho" text="Limpar carrinho">
+                  <Button fx:id="limparCarrinhoButton" mnemonicParsing="false" onAction="#handleLimparCarrinho" text="Limpar carrinho">
                      <HBox.margin>
                         <Insets right="30.0" />
                      </HBox.margin></Button>
-                  <Button mnemonicParsing="false" onAction="#handleFecharCompra" text="Fechar compra" />
+                  <Button fx:id="finalizarCompraButton" mnemonicParsing="false" onAction="#handleFecharCompra" text="Fechar compra" />
                </children>
             </HBox>
          </children>
