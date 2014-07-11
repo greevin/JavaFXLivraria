@@ -26,7 +26,7 @@ import org.controlsfx.dialog.Dialogs;
 
 /**
  *
- * @author casn
+ * @author CASN
  */
 public class FinalizaCompraController {
 

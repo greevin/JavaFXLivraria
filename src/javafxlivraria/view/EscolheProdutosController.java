@@ -24,11 +24,11 @@ import javafxlivraria.model.Revista;
 
 /**
  *
- * @author casn
+ * @author CASN
  */
 public class EscolheProdutosController {
 
-    // Reference to the main application.
+    // Referência para a aplicação principal.
     private LivrariaPrincipal mainApp;
     private Object stage;
 

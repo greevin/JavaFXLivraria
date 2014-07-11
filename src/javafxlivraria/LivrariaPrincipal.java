@@ -46,14 +46,16 @@ public class LivrariaPrincipal extends Application {
     private final ObservableList<String> parcelasCartaoDeCreditoComboBoxData = FXCollections.observableArrayList();
 
     /**
-     *
+     * Define as variáveis que serão usadas durante a criação da Livraria
      */
     public LivrariaPrincipal() {
 
+        //Define um array do tipo Estoque
         Estoque[] estoques = new Estoque[2];
         estoques[0] = new Estoque();
         estoques[1] = new Estoque();
 
+        //Define um array do tipo Livro
         Livro[] livros = new Livro[5];
         livros[0] = new Livro("Livro das Abelhas", "Editora Europa", 1, "Portugues", "05/05/2014", 230, 111111, 50.0, "Capa Dura");
         livros[1] = new Livro("O Senhor dos Anéis - Volume Único", "Editora Atlas", 10, "Portugues", "09/04/2013", 690, 222222, 150.0, "Capa Comum");
@@ -61,26 +63,32 @@ public class LivrariaPrincipal extends Application {
         livros[3] = new Livro("Java - Como Programar", "Deitel e Deitel Editora", 9, "Portugues", "11/07/2013", 1040, 4546546, 125.0, "Capa Comum");
         livros[4] = new Livro("C++ Completo e Total", "Editora Saraiva", 10, "Portugues", "15/04/2010", 560, 99999999, 100.0, "Capa Dura");
 
+        //Define um array do tipo Revista
         Revista[] revistas = new Revista[2];
         revistas[0] = new Revista("Claudia", "Abril", 4343, "Português", "Abril 2014", 3434, 24242, 15.0);
         revistas[1] = new Revista("Info", "Abril", 2554, "Português", "Julho 2014", 232, 656, 15.0);
 
+        //Define um array do tipo Jornal
         Jornal[] jornais = new Jornal[2];
         jornais[0] = new Jornal("O Estado de Minas", "O Estado de Minas", 545454, "Português", "05/10/2013", 50, 22222222, 2.0);
         jornais[1] = new Jornal("O Estado de São Paulo", "O Estado de São Paulo", 556784, "Português", "10/05/2014", 10, 565646, 3.0);
 
+        //Cadastra os livros e suas quantidades nos respectivos estoques
         estoques[0].cadastraItem(livros[0], 5);
         estoques[0].cadastraItem(livros[1], 5);
         estoques[0].cadastraItem(livros[2], 5);
         estoques[1].cadastraItem(livros[3], 5);
         estoques[1].cadastraItem(livros[4], 5);
 
+        //Cadastra as revistas e suas quantidades nos respectivos estoques
         estoques[0].cadastraItem(revistas[0], 5);
         estoques[1].cadastraItem(revistas[1], 5);
-
+        
+        //Cadastra os jornais e suas quantidades nos respectivos estoques
         estoques[0].cadastraItem(jornais[0], 5);
         estoques[1].cadastraItem(jornais[1], 5);
 
+        //Define um array do tipo Endereco para os endereços dos clientes
         Endereco[] enderecosClientes = new Endereco[4];
 
         enderecosClientes[0] = new Endereco("Avenida", "dos Aeronautas", "444", "Nenhum", "Belo Horizonte", "MG");
@@ -88,35 +96,44 @@ public class LivrariaPrincipal extends Application {
         enderecosClientes[2] = new Endereco("Rua", "dos Abacateiros", "3000", "Sem complemento", "São Paulo", "SP");
         enderecosClientes[3] = new Endereco("Avenida", "dos Jacarandás", "3242", "Casa", "Bento Gonçalves", "RS");
 
+        //Define um array do tipo Cliente
         Cliente[] clientes = new Cliente[2];
         clientes[0] = new Cliente("José do Nascimento", "12/12/1986", "13/05/2013", enderecosClientes[1], enderecosClientes[2]);
         clientes[1] = new Cliente("Maria Eduarda", "13/06/2014", "19/05/1996", enderecosClientes[3], enderecosClientes[3]);
 
+        //Define um array do tipo Endereco para os endereços das filiais
         Endereco[] enderecosFilial = new Endereco[2];
 
         enderecosFilial[0] = new Endereco("Rua", "dos Jornalistas", "2050", "Nenhum", "Belo Horizonte", "MG");
         enderecosFilial[1] = new Endereco("Avenida", "João Braga Costa Nunes", "1000", "Loja 3", "Poços de Caldas", "MG");
 
+        //Define um array do tipo Gerente
         Gerente[] gerentes = new Gerente[2];
         gerentes[0] = new Gerente("Carlos Eduardo", "13/01/1986", "06/05/2003", 450, enderecosFilial[0]);
         gerentes[1] = new Gerente("João Ricardo", "20/05/1976", "06/05/1195", 550, enderecosFilial[1]);
 
+        //Define um array do tipo Filial
         Filial[] filiais = new Filial[2];
 
         filiais[0] = new Filial("Livraria dos Jornalistas", enderecosFilial[0], gerentes[0], estoques[0]);
         filiais[1] = new Filial("Livraria dos João Braga", enderecosFilial[1], gerentes[1], estoques[1]);
 
+        //Adiciona todas as filiais na ComboBox
         filialComboBoxData.addAll(filiais);
 
+        //Adiciona todas os clientes na ComboBox
         clienteComboBoxData.addAll(clientes);
 
+        //Adiciona todas as formas de pagamento na ComboBox
         formaPagamentoComboBoxData.add( "Dinheiro");
         formaPagamentoComboBoxData.add("Cartão de Crédito");
         formaPagamentoComboBoxData.add("Cartão de Débito");
         
+        //Adiciona o número de parcelas na ComboBox
         parcelasCartaoDeCreditoComboBoxData.setAll("1","2","3");
     }
 
+    //Os dados como uma lista observável de Filiais.
     public ObservableList<Filial> getComboBoxData() {
         return filialComboBoxData;
     }
@@ -129,6 +146,7 @@ public class LivrariaPrincipal extends Application {
 //        return clienteComboBoxData;
 //    }
 
+    //Cria um "palco" para carregar as "cenas"
     @Override
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
@@ -145,15 +163,17 @@ public class LivrariaPrincipal extends Application {
     public void mostrarRootLayout() {
         try {
             // Load root layout from fxml file.
+            // Carrega o layout raíz do arquivo FXML "RootLayout"
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(LivrariaPrincipal.class.getResource("view/RootLayout.fxml"));
             rootLayout = (BorderPane) loader.load();
 
             // Show the scene containing the root layout.
+            // Mostra a cena que contém o layour raíz
             Scene scene = new Scene(rootLayout);
             primaryStage.setScene(scene);
 
-            // Give the controller access to the main app.
+            // Dá acesso do controlador para o aplicativo principal
             RootLayoutController controller = loader.getController();
             controller.setMainApp(this);
 
@@ -165,7 +185,7 @@ public class LivrariaPrincipal extends Application {
 
     public void mostrarLivraria() {
         try {
-            // Load person overview.
+            // Carrega o layout do "Escolhe Produtos"
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(LivrariaPrincipal.class.getResource("view/EscolheProdutos.fxml"));
             AnchorPane livraria = (AnchorPane) loader.load();
@@ -173,7 +193,7 @@ public class LivrariaPrincipal extends Application {
             // Coloca este layout no centro do layout principal
             rootLayout.setCenter(livraria);
 
-            // Give the controller access to the main app and set data inside controller.
+            // Dá acesso ao controlador para o aplicativo principal definir dados dentro dele.
             EscolheProdutosController controller = loader.getController();
             controller.setMainApp(this);
             controller.setFiliais(filialComboBoxData);
@@ -185,12 +205,12 @@ public class LivrariaPrincipal extends Application {
 
     public void mostrarFinarlizaCompra(ObservableList<ItemCarrinho> carrinho) {
         try {
-            // Load the fxml file and create a new stage for the popup dialog.
+            // Carrega o arquivo FXML "Finaliza Compra" e cria um novo "palco" para o diálogo pop-up
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(LivrariaPrincipal.class.getResource("view/FinalizaCompra.fxml"));
             AnchorPane page = (AnchorPane) loader.load();
 
-            // Create the dialog Stage.
+            // Cria a "caixa de dialogo" 
             Stage dialogStage = new Stage();
             dialogStage.setTitle("Finalizar compra");
             dialogStage.initModality(Modality.WINDOW_MODAL);
@@ -198,7 +218,7 @@ public class LivrariaPrincipal extends Application {
             Scene scene = new Scene(page);
             dialogStage.setScene(scene);
 
-            // Set data into the controller.
+            // Define os dados para o controlador
             FinalizaCompraController controller = loader.getController();
             controller.setDialogStage(dialogStage);
             controller.setMainApp(this);
@@ -207,7 +227,7 @@ public class LivrariaPrincipal extends Application {
             controller.setFormasDePagamento(formaPagamentoComboBoxData);
             controller.setParcelasCredito(parcelasCartaoDeCreditoComboBoxData);
 
-            // Show the dialog and wait until the user closes it
+            // Mostra a "caixa de dialogo" e espera até que o usuário feche
             dialogStage.showAndWait();
 
         } catch (IOException e) {
@@ -336,8 +356,8 @@ public class LivrariaPrincipal extends Application {
 
         } catch (Exception e) { // catches ANY exception
             Dialogs.create()
-                    .title("Error")
-                    .masthead("Could not load data from file:\n" + file.getPath())
+                    .title("Erro")
+                    .masthead("Não foi possível carregar os dados do arquivo:\n" + file.getPath())
                     .showException(e);
         }
     }
@@ -359,15 +379,14 @@ public class LivrariaPrincipal extends Application {
             // Save the file path to the registry.
             setPersonFilePath(file);
         } catch (Exception e) { // catches ANY exception
-            Dialogs.create().title("Error")
-                    .masthead("Could not save data to file:\n" + file.getPath())
+            Dialogs.create().title("Erro")
+                    .masthead("Não foi possível salvar os dados em arquivo:\n" + file.getPath())
                     .showException(e);
         }
     }
 
     /**
-     * Returns the main stage.
-     *
+     * Retorna o "palco" principal
      * @return
      */
     public Stage getPrimaryStage() {

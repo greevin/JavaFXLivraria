@@ -12,15 +12,15 @@ import org.controlsfx.dialog.Dialogs;
 
 /**
  *
- * @author glauber
+ * @author CASN
  */
 public class RootLayoutController {
 
-    // Reference to the main application.
+    //Referência para a aplicação principal.
     private LivrariaPrincipal mainApp;
 
     /**
-     * Is called by the main application to give a reference back to itself.
+     * É chamado pelo aplicativo principal para dar uma referência de volta para si mesmo.
      *
      * @param mainApp
      */
@@ -31,7 +31,7 @@ public class RootLayoutController {
     public void handleSair() {
         System.exit(0);
     }
-
+    // Menu Editar/Importar Dados
     public void handleImportarDados() {
         FileChooser fileChooser = new FileChooser();
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter(
@@ -42,26 +42,27 @@ public class RootLayoutController {
         System.out.println("Arquivo carregado");
     }
 
+    // Menu Editar/Exportar Dados
     public void handleExportarDados() {
         FileChooser fileChooser = new FileChooser();
 
-        // Set extension filter
+        // Define a extensão
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter(
                 "XML files (*.xml)", "*.xml");
         fileChooser.getExtensionFilters().add(extFilter);
 
-        // Show save file dialog
+        // Mostra a caixa de diálogo para salvar arquivo
         File file = fileChooser.showSaveDialog(mainApp.getPrimaryStage());
 
         if (file != null) {
-            // Make sure it has the correct extension
+            // Certifica que tem a extensão correta
             if (!file.getPath().endsWith(".xml")) {
                 file = new File(file.getPath() + ".xml");
             }
             mainApp.saveEstoqueDataToFile(file);
         }
     }
-
+    // Menu Ajuda/Sobre
     public void handleSobre() {
         Dialogs.create()
                 .title("LivrariaPOO")
