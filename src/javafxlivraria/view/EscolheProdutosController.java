@@ -180,11 +180,12 @@ public class EscolheProdutosController {
                     return rotulo;
                 }
         );
+        
         tituloColunaItens.setCellValueFactory(
                 cellData -> cellData.getValue().tituloProperty());
 
         estoqueColunaItens.setCellValueFactory(
-                cellData -> new SimpleStringProperty(cellData.getValue().getQuantidade().toString()));
+                cellData -> cellData.getValue().quantidadeProperty().asString());
 
         // Listen for selection changes and show the person details when changed.
         tabelaItens.getSelectionModel().selectedItemProperty().addListener(
@@ -295,7 +296,7 @@ public class EscolheProdutosController {
         if (tabelaCarrinho.getItems() == null) {
             System.out.println("Não tem nada aqui. :/");
         } else {
-            mainApp.mostrarFinarlizaCompra(tabelaCarrinho.getItems());
+            mainApp.mostrarFinarlizaCompra(tabelaItens.getItems(), tabelaCarrinho.getItems());
             System.out.println("Você apertou o Fechar Compra");
         }
 
@@ -305,5 +306,16 @@ public class EscolheProdutosController {
     private void handleLimparCarrinho() {
         tabelaCarrinho.getItems().clear();
         System.out.println("Você apertou o Limpar Carrinho");
+    }
+    
+    public void atualizaEstoque(ObservableList<ItemCarrinho> carrinho){
+        for(ItemCarrinho itemCarrinho:carrinho){
+            for(Item item: tabelaItens.getItems()){
+                if(item.getTitulo().equalsIgnoreCase(itemCarrinho.getTitulo())){
+                    item.setQuantidade(item.getQuantidade()-itemCarrinho.getUnidades());
+                }
+            }
+        }
+        mostrarDetalhesItem(tabelaItens.getSelectionModel().getSelectedItem());
     }
 }
