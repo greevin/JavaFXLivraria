@@ -75,19 +75,19 @@ public class LivrariaPrincipal extends Application {
         jornais[1] = new Jornal("O Estado de São Paulo", "O Estado de São Paulo", 556784, "Português", "10/05/2014", 10, 565646, 3.0);
 
         //Cadastra os livros e suas quantidades nos respectivos estoques
-        estoques[0].cadastraItem(livros[0], 5);
-        estoques[0].cadastraItem(livros[1], 5);
-        estoques[0].cadastraItem(livros[2], 5);
-        estoques[1].cadastraItem(livros[3], 5);
-        estoques[1].cadastraItem(livros[4], 5);
+        estoques[0].cadastraItem(livros[0], 50);
+        estoques[0].cadastraItem(livros[1], 50);
+        estoques[0].cadastraItem(livros[2], 50);
+        estoques[1].cadastraItem(livros[3], 50);
+        estoques[1].cadastraItem(livros[4], 50);
 
         //Cadastra as revistas e suas quantidades nos respectivos estoques
-        estoques[0].cadastraItem(revistas[0], 5);
-        estoques[1].cadastraItem(revistas[1], 5);
+        estoques[0].cadastraItem(revistas[0], 50);
+        estoques[1].cadastraItem(revistas[1], 50);
 
         //Cadastra os jornais e suas quantidades nos respectivos estoques
-        estoques[0].cadastraItem(jornais[0], 5);
-        estoques[1].cadastraItem(jornais[1], 5);
+        estoques[0].cadastraItem(jornais[0], 50);
+        estoques[1].cadastraItem(jornais[1], 50);
 
         //Define um array do tipo Endereco para os endereços dos clientes
         Endereco[] enderecosClientes = new Endereco[4];
@@ -236,9 +236,8 @@ public class LivrariaPrincipal extends Application {
         }
     }
 
-    public void atualizaEstoque(ObservableList<ItemCarrinho> carrinho) {
-        escolheProdutosController.atualizaEstoque(carrinho);
-        
+    public void atualizaEstoque() {
+        escolheProdutosController.atualizaEstoque();
     }
 
     /**

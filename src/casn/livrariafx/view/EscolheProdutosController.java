@@ -343,15 +343,7 @@ public class EscolheProdutosController {
         logger.info("Você apertou o Limpar Carrinho");
     }
 
-    public void atualizaEstoque(ObservableList<ItemCarrinho> carrinho) {
-//        for (ItemCarrinho itemCarrinho : carrinho) {
-//            for (Item item : tabelaItens.getItems()) {
-//                if (item.getTitulo().equalsIgnoreCase(itemCarrinho.getTitulo())) {
-//                    item.setQuantidade(item.getQuantidade() - itemCarrinho.getUnidades());
-//                }
-//            }
-//        }
-        
+    public void atualizaEstoque() {
         for (ItemCarrinho itemCarrinho : tabelaCarrinho.getItems()) {
             for (Item item : tabelaItens.getItems()) {
                 if (item.getTitulo().equalsIgnoreCase(itemCarrinho.getTitulo())) {

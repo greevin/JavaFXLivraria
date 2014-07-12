@@ -159,7 +159,7 @@ public class FinalizaCompraController {
 
     @FXML
     private void handleConcluirCompra() {
-        mainApp.atualizaEstoque(tabelaCarrinho.getItems());
+        mainApp.atualizaEstoque();
 
         Dialogs.create()
                 .title("Compra Finalizada")
