@@ -1,4 +1,4 @@
-package javafxlivraria.view;
+package casn.livrariafx.view;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -13,9 +13,9 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
-import javafxlivraria.LivrariaPrincipal;
-import javafxlivraria.model.Cliente;
-import javafxlivraria.model.ItemCarrinho;
+import casn.livrariafx.LivrariaPrincipal;
+import casn.livrariafx.model.Cliente;
+import casn.livrariafx.model.ItemCarrinho;
 import org.controlsfx.control.action.Action;
 import org.controlsfx.dialog.Dialog;
 import org.controlsfx.dialog.Dialogs;

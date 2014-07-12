@@ -1,4 +1,4 @@
-package javafxlivraria.view;
+package casn.livrariafx.view;
 
 import java.util.logging.Logger;
 import javafx.beans.property.SimpleStringProperty;
@@ -14,14 +14,16 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.util.StringConverter;
-import javafxlivraria.LivrariaLogger;
-import javafxlivraria.LivrariaPrincipal;
-import javafxlivraria.model.Filial;
-import javafxlivraria.model.Item;
-import javafxlivraria.model.ItemCarrinho;
-import javafxlivraria.model.Jornal;
-import javafxlivraria.model.Livro;
-import javafxlivraria.model.Revista;
+import casn.livrariafx.util.LivrariaLogger;
+import casn.livrariafx.LivrariaPrincipal;
+import casn.livrariafx.model.exception.EstoqueEsgotadoException;
+import casn.livrariafx.model.Filial;
+import casn.livrariafx.model.Item;
+import casn.livrariafx.model.ItemCarrinho;
+import casn.livrariafx.model.Jornal;
+import casn.livrariafx.model.Livro;
+import casn.livrariafx.model.Revista;
+import org.controlsfx.dialog.Dialogs;
 
 /**
  *
@@ -272,22 +274,45 @@ public class EscolheProdutosController {
         }
     }
 
+    private void adicionaItemCarrinho(ObservableList<ItemCarrinho> carrinho, Item itemEscolhido, Integer quantidadeSelecionada) throws EstoqueEsgotadoException {
+        ItemCarrinho novo = new ItemCarrinho(itemEscolhido, quantidadeSelecionada);
+        if (carrinho.contains(novo)) {
+            ItemCarrinho old = carrinho.get(carrinho.indexOf(novo));
+            novo.aumentaUnidades(old.getUnidades());
+            if (novo.getUnidades() <= itemEscolhido.getQuantidade()) {
+                carrinho.remove(old);
+                carrinho.add(novo);
+            } else {
+                throw new EstoqueEsgotadoException();
+            }
+        } else {
+            if (novo.getUnidades() <= itemEscolhido.getQuantidade()) {
+                carrinho.add(novo);
+            } else {
+                throw new EstoqueEsgotadoException();
+            }
+        }
+    }
+
     /**
      * Chamado quando o usuário clica no botão "Comprar Produto"
      */
     @FXML
     private void handleComprarProduto() {
         Integer quantidadeSelecionada = Integer.parseInt(quantidadeField.getText());
-        ItemCarrinho novo = new ItemCarrinho(tabelaItens.getSelectionModel().getSelectedItem(), quantidadeSelecionada);
-        ObservableList<ItemCarrinho> lista = tabelaCarrinho.getItems();
-        if (lista.contains(novo)) {
-            ItemCarrinho old = lista.get(lista.indexOf(novo));
-            novo.aumentaUnidades(old.getUnidades());
-            lista.remove(old);
-            lista.add(novo);
-        } else {
-            lista.add(novo);
+        Item itemEscolhido = tabelaItens.getSelectionModel().getSelectedItem();
+
+        ObservableList<ItemCarrinho> carrinho = tabelaCarrinho.getItems();
+
+        try {
+            adicionaItemCarrinho(carrinho, itemEscolhido, quantidadeSelecionada);
+        } catch (EstoqueEsgotadoException ex) {
+            Dialogs.create()
+                    .title("Problemas de Estoque")
+                    .message("Você solicitou mais pedidos do que há no estoque. Por favor, selecione menos produtos.")
+                    .showInformation();
         }
+
         tituloColunaCarrinho.setSortType(TableColumn.SortType.ASCENDING);
         // As duas linhas abaixo solucionam um BUG do JavaFX que não atualiza as tabelas.
         tabelaCarrinho.getColumns().get(0).setVisible(false);
@@ -319,13 +344,22 @@ public class EscolheProdutosController {
     }
 
     public void atualizaEstoque(ObservableList<ItemCarrinho> carrinho) {
-        for (ItemCarrinho itemCarrinho : carrinho) {
+//        for (ItemCarrinho itemCarrinho : carrinho) {
+//            for (Item item : tabelaItens.getItems()) {
+//                if (item.getTitulo().equalsIgnoreCase(itemCarrinho.getTitulo())) {
+//                    item.setQuantidade(item.getQuantidade() - itemCarrinho.getUnidades());
+//                }
+//            }
+//        }
+        
+        for (ItemCarrinho itemCarrinho : tabelaCarrinho.getItems()) {
             for (Item item : tabelaItens.getItems()) {
                 if (item.getTitulo().equalsIgnoreCase(itemCarrinho.getTitulo())) {
                     item.setQuantidade(item.getQuantidade() - itemCarrinho.getUnidades());
                 }
             }
         }
+        tabelaCarrinho.getItems().clear();
         mostrarDetalhesItem(tabelaItens.getSelectionModel().getSelectedItem());
     }
 }

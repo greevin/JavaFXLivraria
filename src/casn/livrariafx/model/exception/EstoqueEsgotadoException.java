@@ -1,4 +1,4 @@
-package javafxlivraria.exception;
+package casn.livrariafx.model.exception;
 
 public class EstoqueEsgotadoException extends Exception {
 

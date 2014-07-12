@@ -1,7 +1,7 @@
-package javafxlivraria.model;
+package casn.livrariafx.model;
 
 import java.util.logging.Logger;
-import javafxlivraria.LivrariaLogger;
+import casn.livrariafx.util.LivrariaLogger;
 
 /**
  *

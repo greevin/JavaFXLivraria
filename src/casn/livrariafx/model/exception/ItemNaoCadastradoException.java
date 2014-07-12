@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package javafxlivraria.exception;
+package casn.livrariafx.model.exception;
 
 /**
  *

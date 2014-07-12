@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package javafxlivraria.view;
+package casn.livrariafx.view;
 
 import java.io.File;
 import javafx.stage.FileChooser;
-import javafxlivraria.LivrariaPrincipal;
+import casn.livrariafx.LivrariaPrincipal;
 import org.controlsfx.dialog.Dialogs;
 
 /**

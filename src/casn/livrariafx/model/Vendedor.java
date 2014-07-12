@@ -1,4 +1,4 @@
-package javafxlivraria.model;
+package casn.livrariafx.model;
 
 /**
  * Classe com as informações do Vendedor. Vendedor É-UM tipo de Funcionário.

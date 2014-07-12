@@ -1,9 +1,9 @@
-package javafxlivraria.model;
+package casn.livrariafx.model;
 
 import java.util.logging.Logger;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafxlivraria.LivrariaLogger;
+import casn.livrariafx.util.LivrariaLogger;
 
 /**
  *

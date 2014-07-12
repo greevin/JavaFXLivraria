@@ -1,11 +1,11 @@
-package javafxlivraria.model;
+package casn.livrariafx.model;
 
 import java.util.logging.Logger;
-import javafxlivraria.exception.EstoqueEsgotadoException;
+import casn.livrariafx.model.exception.EstoqueEsgotadoException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafxlivraria.LivrariaLogger;
-import javafxlivraria.exception.ItemNaoCadastradoException;
+import casn.livrariafx.util.LivrariaLogger;
+import casn.livrariafx.model.exception.ItemNaoCadastradoException;
 
 /**
  *

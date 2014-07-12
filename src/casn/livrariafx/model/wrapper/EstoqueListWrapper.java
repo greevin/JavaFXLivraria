@@ -1,7 +1,7 @@
-package javafxlivraria.view;
+package casn.livrariafx.model.wrapper;
 
 import java.util.List;
-import javafxlivraria.model.Estoque;
+import casn.livrariafx.model.Estoque;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 

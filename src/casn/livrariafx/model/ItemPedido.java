@@ -1,4 +1,4 @@
-package javafxlivraria.model;
+package casn.livrariafx.model;
 
 /**
  *

@@ -1,4 +1,4 @@
-package javafxlivraria;
+package casn.livrariafx;
 
 import java.io.File;
 import java.io.IOException;
@@ -12,20 +12,20 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafxlivraria.model.Cliente;
-import javafxlivraria.model.Endereco;
-import javafxlivraria.model.Estoque;
-import javafxlivraria.model.Filial;
-import javafxlivraria.model.Gerente;
-import javafxlivraria.model.Item;
-import javafxlivraria.model.ItemCarrinho;
-import javafxlivraria.model.Jornal;
-import javafxlivraria.model.Livro;
-import javafxlivraria.model.Revista;
-import javafxlivraria.view.ClienteListWrapper;
-import javafxlivraria.view.EscolheProdutosController;
-import javafxlivraria.view.FinalizaCompraController;
-import javafxlivraria.view.RootLayoutController;
+import casn.livrariafx.model.Cliente;
+import casn.livrariafx.model.Endereco;
+import casn.livrariafx.model.Estoque;
+import casn.livrariafx.model.Filial;
+import casn.livrariafx.model.Gerente;
+import casn.livrariafx.model.Item;
+import casn.livrariafx.model.ItemCarrinho;
+import casn.livrariafx.model.Jornal;
+import casn.livrariafx.model.Livro;
+import casn.livrariafx.model.Revista;
+import casn.livrariafx.model.wrapper.ClienteListWrapper;
+import casn.livrariafx.view.EscolheProdutosController;
+import casn.livrariafx.view.FinalizaCompraController;
+import casn.livrariafx.view.RootLayoutController;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
@@ -238,6 +238,7 @@ public class LivrariaPrincipal extends Application {
 
     public void atualizaEstoque(ObservableList<ItemCarrinho> carrinho) {
         escolheProdutosController.atualizaEstoque(carrinho);
+        
     }
 
     /**
