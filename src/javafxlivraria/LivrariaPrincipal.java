@@ -24,7 +24,6 @@ import javafxlivraria.model.Livro;
 import javafxlivraria.model.Revista;
 import javafxlivraria.view.ClienteListWrapper;
 import javafxlivraria.view.EscolheProdutosController;
-import javafxlivraria.view.EstoqueListWrapper;
 import javafxlivraria.view.FinalizaCompraController;
 import javafxlivraria.view.RootLayoutController;
 import javax.xml.bind.JAXBContext;
@@ -45,6 +44,7 @@ public class LivrariaPrincipal extends Application {
     private final ObservableList<Cliente> clienteComboBoxData = FXCollections.observableArrayList();
     private final ObservableList<String> formaPagamentoComboBoxData = FXCollections.observableArrayList();
     private final ObservableList<String> parcelasCartaoDeCreditoComboBoxData = FXCollections.observableArrayList();
+    EscolheProdutosController escolheProdutosController;
 
     /**
      * Define as variáveis que serão usadas durante a criação da Livraria
@@ -84,7 +84,7 @@ public class LivrariaPrincipal extends Application {
         //Cadastra as revistas e suas quantidades nos respectivos estoques
         estoques[0].cadastraItem(revistas[0], 5);
         estoques[1].cadastraItem(revistas[1], 5);
-        
+
         //Cadastra os jornais e suas quantidades nos respectivos estoques
         estoques[0].cadastraItem(jornais[0], 5);
         estoques[1].cadastraItem(jornais[1], 5);
@@ -126,12 +126,11 @@ public class LivrariaPrincipal extends Application {
         clienteComboBoxData.addAll(clientes);
 
         //Adiciona todas as formas de pagamento na ComboBox
-        formaPagamentoComboBoxData.add( "Dinheiro");
+        formaPagamentoComboBoxData.add("Dinheiro");
         formaPagamentoComboBoxData.add("Cartão de Crédito");
         formaPagamentoComboBoxData.add("Cartão de Débito");
-        
-        //Adiciona o número de parcelas na ComboBox
-        parcelasCartaoDeCreditoComboBoxData.setAll("1","2","3");
+
+        //parcelasCartaoDeCreditoComboBoxData.setAll("1","2","3");
     }
 
     //Os dados como uma lista observável de Filiais.
@@ -198,13 +197,14 @@ public class LivrariaPrincipal extends Application {
             EscolheProdutosController controller = loader.getController();
             controller.setMainApp(this);
             controller.setFiliais(filialComboBoxData);
+            escolheProdutosController = controller;
 
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public void mostrarFinarlizaCompra(ObservableList<ItemCarrinho> carrinho) {
+    public void mostrarFinarlizaCompra(ObservableList<Item> estoque, ObservableList<ItemCarrinho> carrinho) {
         try {
             // Carrega o arquivo FXML "Finaliza Compra" e cria um novo "palco" para o diálogo pop-up
             FXMLLoader loader = new FXMLLoader();
@@ -234,6 +234,10 @@ public class LivrariaPrincipal extends Application {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void atualizaEstoque(ObservableList<ItemCarrinho> carrinho) {
+        escolheProdutosController.atualizaEstoque(carrinho);
     }
 
     /**
@@ -322,6 +326,7 @@ public class LivrariaPrincipal extends Application {
 
     /**
      * Retorna o "palco" principal
+     *
      * @return
      */
     public Stage getPrimaryStage() {

@@ -32,6 +32,11 @@ public class ItemCarrinho {
         this.total = new SimpleDoubleProperty(preco * unidades);
     }
 
+    /**
+     *
+     * @param item
+     * @param unidades
+     */
     public ItemCarrinho(Item item, Integer unidades) {
         this(item.getTitulo(), item.getPreco(), unidades);
     }
@@ -105,7 +110,6 @@ public class ItemCarrinho {
         return unidades;
     }
 
-    
     /**
      *
      * @return
@@ -129,29 +133,29 @@ public class ItemCarrinho {
     public DoubleProperty totalProperty() {
         return total;
     }
-    
+
     /**
      *
      * @param unidades
      */
-    public void aumentaUnidades(Integer unidades){
+    public void aumentaUnidades(Integer unidades) {
         this.unidades.setValue(this.getUnidades() + unidades);
         recalculaTotal();
     }
-    
+
     /**
      *
      * @param unidades
      */
-    public void diminuiUnidades(Integer unidades){
+    public void diminuiUnidades(Integer unidades) {
         this.unidades.setValue(this.getUnidades() - unidades);
         recalculaTotal();
     }
-    
-    private void recalculaTotal(){
-        this.total.setValue(this.getUnidades()* this.getPreco());
+
+    private void recalculaTotal() {
+        this.total.setValue(this.getUnidades() * this.getPreco());
     }
-    
+
     @Override
     public int hashCode() {
         Integer hash = 3;

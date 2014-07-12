@@ -3,6 +3,7 @@ package javafxlivraria.view;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
@@ -93,10 +94,18 @@ public class FinalizaCompraController {
             }
         });
 
-        clienteComboBox.setOnAction((event) -> {
-            Cliente selectedCliente = clienteComboBox.getSelectionModel().getSelectedItem();
-            preencheDetalhesCliente(selectedCliente);
-
+        formasPagamentoComboBox.setOnAction((event) -> {
+            String selectedPagamento = formasPagamentoComboBox.getSelectionModel().getSelectedItem();
+            ObservableList<String> itens;
+            itens = FXCollections.observableArrayList();
+            if ("Dinheiro".equalsIgnoreCase(selectedPagamento)
+                    || "Cartão de Débito".equalsIgnoreCase(selectedPagamento)) {
+                itens.addAll("1");
+            } else if ("Cartão de Crédito".equalsIgnoreCase(selectedPagamento)) {
+                itens.addAll("1", "2", "3", "4", "5");
+            }
+            parcelasCreditoComboBox.setItems(itens);
+            parcelasCreditoComboBox.getSelectionModel().select(0);
         });
 
         tituloColunaCarrinho.setCellValueFactory(
@@ -108,16 +117,10 @@ public class FinalizaCompraController {
         totalColunaCarrinho.setCellValueFactory(
                 cellData -> new SimpleStringProperty(cellData.getValue().getTotal().toString()));
 
-        tabelaCarrinho.getSelectionModel().selectedItemProperty().addListener(
-                (observable, oldValue, newValue) -> {
-                    Double precoTotal = 0.0;
-                    for (ItemCarrinho carrinho : tabelaCarrinho.getItems()) {
-                        precoTotal += carrinho.getPreco() * carrinho.getUnidades();
-                    }
-                    NumberFormat df = DecimalFormat.getCurrencyInstance();
-                    precoTotalLabel.setText(NumberFormat.getCurrencyInstance().format(precoTotal));
-                });
-
+        clienteComboBox.setOnAction((event) -> {
+            Cliente selectedCliente = clienteComboBox.getSelectionModel().getSelectedItem();
+            preencheDetalhesCliente(selectedCliente);
+        });
     }
 
     private void preencheDetalhesCliente(Cliente cliente) {
@@ -131,12 +134,6 @@ public class FinalizaCompraController {
             enderecoEntregaLabel.setText("");
         }
     }
-//    
-//    private void preencheTabela(Cliente cliente){
-//        // Listen for selection changes and show the person details when changed.
-//        clienteComboBox.getSelectionModel().selectedItemProperty().addListener(
-//                (observable, oldValue, newValue) -> preencheDetalhesCliente(newValue));
-//    }
 
     public void setDialogStage(Stage dialogStage) {
         this.dialogStage = dialogStage;
@@ -162,6 +159,8 @@ public class FinalizaCompraController {
 
     @FXML
     private void handleConcluirCompra() {
+        mainApp.atualizaEstoque(tabelaCarrinho.getItems());
+
         Dialogs.create()
                 .title("Compra Finalizada")
                 .message("Compra Finalizada")
@@ -171,13 +170,16 @@ public class FinalizaCompraController {
 
     public void setMainApp(LivrariaPrincipal mainApp) {
         this.mainApp = mainApp;
-
-//        formaPagamentoComboBox.setItems(mainApp.getFormaPagamentoComboBoxData());
-//        clienteComboBox.setItems(mainApp.getClienteComboBoxData());
     }
 
     public void setCarrinhoDeCompras(ObservableList<ItemCarrinho> itensCarrinho) {
         this.tabelaCarrinho.setItems(itensCarrinho);
+        Double precoTotal = 0.0;
+        for (ItemCarrinho carrinho : tabelaCarrinho.getItems()) {
+            precoTotal += carrinho.getPreco() * carrinho.getUnidades();
+        }
+        NumberFormat df = DecimalFormat.getCurrencyInstance();
+        precoTotalLabel.setText(NumberFormat.getCurrencyInstance().format(precoTotal));
     }
 
     public void setFormasDePagamento(ObservableList<String> formasDePagamento) {

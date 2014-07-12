@@ -1,7 +1,6 @@
 package javafxlivraria.view;
 
 import java.util.List;
-import javafx.collections.ObservableList;
 import javafxlivraria.model.Estoque;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;

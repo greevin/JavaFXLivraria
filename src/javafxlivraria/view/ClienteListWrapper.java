@@ -11,15 +11,24 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement(name = "clientes")
 public class ClienteListWrapper {
+
     private List<Cliente> clientes;
-    
+
+    /**
+     *
+     * @return
+     */
     @XmlElement(name = "cliente")
-    public List<Cliente> getClientes(){
+    public List<Cliente> getClientes() {
         return clientes;
     }
-    
-    public void setClientes(List<Cliente> clientes){
+
+    /**
+     *
+     * @param clientes
+     */
+    public void setClientes(List<Cliente> clientes) {
         this.clientes = clientes;
     }
-    
+
 }

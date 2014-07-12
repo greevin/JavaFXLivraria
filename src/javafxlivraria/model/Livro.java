@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package javafxlivraria.model;
 
 import javafx.beans.property.SimpleStringProperty;
@@ -14,10 +13,9 @@ import javafx.beans.property.StringProperty;
  * @author casn
  */
 public class Livro extends Item {
-    
+
     private final StringProperty formato;
 
-    
     /**
      *
      * @param nome
@@ -31,11 +29,11 @@ public class Livro extends Item {
      * @param formato
      */
     public Livro(String nome, String editora, Integer edicao, String idioma, String dataDePublicacao,
-                   Integer numeroDePaginas, Integer codigoDeBarras, Double preco, String formato) {
+            Integer numeroDePaginas, Integer codigoDeBarras, Double preco, String formato) {
         super(nome, editora, edicao, idioma, dataDePublicacao, numeroDePaginas, codigoDeBarras, preco);
         this.formato = new SimpleStringProperty(formato);
     }
-    
+
     /**
      *
      * @param nome
@@ -50,7 +48,7 @@ public class Livro extends Item {
      * @param quantidade
      */
     public Livro(String nome, String editora, Integer edicao, String idioma, String dataDePublicacao,
-                   Integer numeroDePaginas, Integer codigoDeBarras, Double preco, String formato, Integer quantidade) {
+            Integer numeroDePaginas, Integer codigoDeBarras, Double preco, String formato, Integer quantidade) {
         super(nome, editora, edicao, idioma, dataDePublicacao, numeroDePaginas, codigoDeBarras, preco, quantidade);
         this.formato = new SimpleStringProperty(formato);
     }
@@ -68,13 +66,13 @@ public class Livro extends Item {
     public void setFormato(String formato) {
         this.formato.set(formato);
     }
-    
+
     /**
      *
      * @return
      */
-    public String getFormato(){
+    public String getFormato() {
         return formato.get();
     }
-    
+
 }

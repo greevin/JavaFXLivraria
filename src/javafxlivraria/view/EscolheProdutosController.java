@@ -1,5 +1,6 @@
 package javafxlivraria.view;
 
+import java.util.logging.Logger;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -13,6 +14,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.util.StringConverter;
+import javafxlivraria.LivrariaLogger;
 import javafxlivraria.LivrariaPrincipal;
 import javafxlivraria.model.Filial;
 import javafxlivraria.model.Item;
@@ -27,6 +29,7 @@ import javafxlivraria.model.Revista;
  */
 public class EscolheProdutosController {
 
+    private static final Logger logger = LivrariaLogger.getInstance(false);
     // Referência para a aplicação principal.
     private LivrariaPrincipal mainApp;
     private Object stage;
@@ -200,9 +203,10 @@ public class EscolheProdutosController {
 
         quantidadeField.setText("1");
 
-        //desabilita os botões "Comprar Produto", "Limpar Carrinho" e "Finalizar Comprar"
-        //quando não está mostrando nada na TableView. 
-        //O botão só é habilitado quando é selecionado um item.
+        /*
+         Desabilita os botões "Comprar Produto", "Limpar Carrinho" e "Finalizar Comprar" quando não está mostrando nada na TableView. 
+         O botão só é habilitado quando é selecionado um item.
+         */
         comprarProdutoButton.setDisable(true);
         limparCarrinhoButton.setDisable(true);
         finalizarCompraButton.setDisable(true);
@@ -211,7 +215,6 @@ public class EscolheProdutosController {
                 comprarProdutoButton.setDisable(false);
                 limparCarrinhoButton.setDisable(false);
                 finalizarCompraButton.setDisable(false);
-
             }
         });
     }
@@ -269,7 +272,7 @@ public class EscolheProdutosController {
         }
     }
 
-        /**
+    /**
      * Chamado quando o usuário clica no botão "Comprar Produto"
      */
     @FXML
@@ -286,10 +289,10 @@ public class EscolheProdutosController {
             lista.add(novo);
         }
         tituloColunaCarrinho.setSortType(TableColumn.SortType.ASCENDING);
-        // BUG do JavaFX
+        // As duas linhas abaixo solucionam um BUG do JavaFX que não atualiza as tabelas.
         tabelaCarrinho.getColumns().get(0).setVisible(false);
         tabelaCarrinho.getColumns().get(0).setVisible(true);
-        System.out.println("Você apertou o Comprar Produto");
+        logger.info("Você apertou o Comprar Produto");
     }
 
     /**
@@ -298,11 +301,10 @@ public class EscolheProdutosController {
     @FXML
     private void handleFecharCompra() {
         if (tabelaCarrinho.getItems() == null) {
-            System.out.println("Não tem nada aqui. :/");
+            logger.info("Não tem nada aqui. :/");
         } else {
-            //mainApp.mostrarFinarlizaCompra(tabelaItens.getItems(), tabelaCarrinho.getItems());
-            mainApp.mostrarFinarlizaCompra(tabelaCarrinho.getItems());
-            System.out.println("Você apertou o Fechar Compra");
+            mainApp.mostrarFinarlizaCompra(tabelaItens.getItems(), tabelaCarrinho.getItems());
+            logger.info("Você apertou o Fechar Compra");
         }
 
     }
@@ -313,7 +315,7 @@ public class EscolheProdutosController {
     @FXML
     private void handleLimparCarrinho() {
         tabelaCarrinho.getItems().clear();
-        System.out.println("Você apertou o Limpar Carrinho");
+        logger.info("Você apertou o Limpar Carrinho");
     }
 
     public void atualizaEstoque(ObservableList<ItemCarrinho> carrinho) {

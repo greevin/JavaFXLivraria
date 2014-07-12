@@ -1,12 +1,14 @@
 package javafxlivraria.model;
 
 import java.util.Objects;
+import java.util.logging.Logger;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafxlivraria.LivrariaLogger;
 
 /**
  *
@@ -23,8 +25,8 @@ public class Item {
     private final IntegerProperty codigoDeBarras;
     private final DoubleProperty preco;
     private final IntegerProperty quantidade;
+    private static final Logger logger = LivrariaLogger.getInstance(false);
 
-    
     /**
      *
      * @param nome
@@ -37,9 +39,9 @@ public class Item {
      * @param preco
      */
     public Item(String nome, String editora, Integer edicao, String idioma, String dataDePublicacao, Integer numeroDePaginas, Integer codigoDeBarras, Double preco) {
-        this(nome, editora, edicao, idioma, dataDePublicacao, numeroDePaginas, codigoDeBarras, preco,0);
+        this(nome, editora, edicao, idioma, dataDePublicacao, numeroDePaginas, codigoDeBarras, preco, 0);
     }
-    
+
     /**
      *
      * @param nome
@@ -184,7 +186,7 @@ public class Item {
     public Integer getNumeroDePaginas() {
         return numeroDePaginas.get();
     }
-    
+
     /**
      *
      * @param numeroDePaginas
@@ -216,7 +218,7 @@ public class Item {
     public void setCodigoDeBarras(Integer codigoDeBarras) {
         this.codigoDeBarras.set(codigoDeBarras);
     }
-    
+
     /**
      *
      * @return
@@ -239,7 +241,7 @@ public class Item {
     public void setPreco(Double preco) {
         this.preco.set(preco);
     }
-    
+
     /**
      *
      * @return
@@ -247,7 +249,7 @@ public class Item {
     public DoubleProperty precoProperty() {
         return preco;
     }
-    
+
     /**
      *
      * @return
@@ -268,11 +270,10 @@ public class Item {
      *
      * @return
      */
-    public IntegerProperty quantidadeProperty(){
+    public IntegerProperty quantidadeProperty() {
         return quantidade;
     }
-    
-    
+
     @Override
     public int hashCode() {
         Integer hash = 3;
@@ -317,5 +318,5 @@ public class Item {
             return false;
         }
         return true;
-    } 
+    }
 }

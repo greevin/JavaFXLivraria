@@ -18,10 +18,10 @@ public class Jornal extends Item {
      * @param preco
      */
     public Jornal(String nome, String editora, Integer edicao, String idioma, String dataDePublicacao, Integer numeroDePaginas,
-                  Integer codigoDeBarras, Double preco) {
+            Integer codigoDeBarras, Double preco) {
         super(nome, editora, edicao, idioma, dataDePublicacao, numeroDePaginas, codigoDeBarras, preco);
     }
-    
+
     /**
      *
      * @param nome
@@ -35,7 +35,7 @@ public class Jornal extends Item {
      * @param quantidade
      */
     public Jornal(String nome, String editora, Integer edicao, String idioma, String dataDePublicacao, Integer numeroDePaginas,
-                  Integer codigoDeBarras, Double preco, Integer quantidade) {
+            Integer codigoDeBarras, Double preco, Integer quantidade) {
         super(nome, editora, edicao, idioma, dataDePublicacao, numeroDePaginas, codigoDeBarras, preco, quantidade);
     }
 }

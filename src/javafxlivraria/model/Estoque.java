@@ -1,8 +1,10 @@
 package javafxlivraria.model;
 
+import java.util.logging.Logger;
 import javafxlivraria.exception.EstoqueEsgotadoException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafxlivraria.LivrariaLogger;
 import javafxlivraria.exception.ItemNaoCadastradoException;
 
 /**
@@ -12,6 +14,7 @@ import javafxlivraria.exception.ItemNaoCadastradoException;
 public class Estoque {
 
     private final ObservableList<Item> estoqueDeItens = FXCollections.observableArrayList();
+    private static final Logger logger = LivrariaLogger.getInstance(false);
 
     /**
      *
@@ -45,7 +48,7 @@ public class Estoque {
         } else {
             throw new ItemNaoCadastradoException();
         }
-        System.out.println("Quantidade Total do " + item.getTitulo() + " em estoque: " + item.getQuantidade());
+        logger.info("Quantidade Total do " + item.getTitulo() + " em estoque: " + item.getQuantidade());
     }
 
     /**
@@ -69,7 +72,8 @@ public class Estoque {
         } else {
             throw new ItemNaoCadastradoException();
         }
-        System.out.println("Quantidade Total do " + item.getTitulo() + " em estoque após remover: " + item.getQuantidade());
+
+        logger.info("Quantidade Total do " + item.getTitulo() + " em estoque após remover: " + item.getQuantidade());
     }
 
     /**
