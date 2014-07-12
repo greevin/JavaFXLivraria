@@ -31,19 +31,9 @@ public class RootLayoutController {
     public void handleSair() {
         System.exit(0);
     }
-    // Menu Editar/Importar Dados
-    public void handleImportarDados() {
-        FileChooser fileChooser = new FileChooser();
-        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter(
-                "XML files (*.xml)", "*.xml");
-        fileChooser.getExtensionFilters().add(extFilter);
-        fileChooser.setTitle("Open Resource File");
-        fileChooser.showOpenDialog(mainApp.getPrimaryStage());
-        System.out.println("Arquivo carregado");
-    }
-
-    // Menu Editar/Exportar Dados
-    public void handleExportarDados() {
+    
+    // Menu Exportar/Exportar Clientes
+    public void handleExportarClientesDados() {
         FileChooser fileChooser = new FileChooser();
 
         // Define a extensão
@@ -59,7 +49,7 @@ public class RootLayoutController {
             if (!file.getPath().endsWith(".xml")) {
                 file = new File(file.getPath() + ".xml");
             }
-            mainApp.saveEstoqueDataToFile(file);
+            mainApp.saveClienteDataToFile(file);
         }
     }
     // Menu Ajuda/Sobre

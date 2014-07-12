@@ -17,6 +17,7 @@ import javafxlivraria.model.Endereco;
 import javafxlivraria.model.Estoque;
 import javafxlivraria.model.Filial;
 import javafxlivraria.model.Gerente;
+import javafxlivraria.model.Item;
 import javafxlivraria.model.ItemCarrinho;
 import javafxlivraria.model.Jornal;
 import javafxlivraria.model.Livro;
@@ -296,7 +297,7 @@ public class LivrariaPrincipal extends Application {
         }
     }
 
-    public void savePersonDataToFile(File file) {
+    public void saveClienteDataToFile(File file) {
         try {
             JAXBContext context = JAXBContext
                     .newInstance(ClienteListWrapper.class);
@@ -315,72 +316,6 @@ public class LivrariaPrincipal extends Application {
         } catch (Exception e) { // catches ANY exception
             Dialogs.create().title("Error")
                     .masthead("Could not save data to file:\n" + file.getPath())
-                    .showException(e);
-        }
-    }
-    
-         /* Sets the file path of the currently loaded file. The path is persisted in
-     * the OS specific registry.
-     *
-     * @param file the file or null to remove the path
-     */
-    public void setEstoqueFilePath(File file) {
-        Preferences prefs = Preferences.userNodeForPackage(LivrariaPrincipal.class);
-        if (file != null) {
-            prefs.put("filePath", file.getPath());
-
-            // Update the stage title.
-            primaryStage.setTitle("Livraria - " + file.getName());
-        } else {
-            prefs.remove("filePath");
-
-            // Update the stage title.
-            primaryStage.setTitle("Livraria");
-        }
-    }
-
-    public void loadEstoqueDataFromFile(File file) {
-        try {
-            JAXBContext context = JAXBContext
-                    .newInstance(EstoqueListWrapper.class);
-            Unmarshaller um = context.createUnmarshaller();
-
-            // Reading XML from the file and unmarshalling.
-            EstoqueListWrapper wrapper = (EstoqueListWrapper) um.unmarshal(file);
-
-            filialComboBoxData.clear();
-            filialComboBoxData.addAll(wrapper.getFilial());
-
-            // Save the file path to the registry.
-            setPersonFilePath(file);
-
-        } catch (Exception e) { // catches ANY exception
-            Dialogs.create()
-                    .title("Erro")
-                    .masthead("Não foi possível carregar os dados do arquivo:\n" + file.getPath())
-                    .showException(e);
-        }
-    }
-
-    public void saveEstoqueDataToFile(File file) {
-        try {
-            JAXBContext context = JAXBContext
-                    .newInstance(EstoqueListWrapper.class);
-            Marshaller m = context.createMarshaller();
-            m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-
-            // Wrapping our person data.
-            EstoqueListWrapper wrapper = new EstoqueListWrapper();
-            wrapper.setEstoque(filialComboBoxData);
-
-            // Marshalling and saving XML to the file.
-            m.marshal(wrapper, file);
-
-            // Save the file path to the registry.
-            setPersonFilePath(file);
-        } catch (Exception e) { // catches ANY exception
-            Dialogs.create().title("Erro")
-                    .masthead("Não foi possível salvar os dados em arquivo:\n" + file.getPath())
                     .showException(e);
         }
     }

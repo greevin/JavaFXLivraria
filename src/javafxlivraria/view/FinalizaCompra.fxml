@@ -47,8 +47,8 @@
                   <ComboBox fx:id="clienteComboBox" prefHeight="26.0" prefWidth="266.0" promptText="Selecione o cliente" GridPane.columnIndex="1" />
                   <Label text="Endereço de Faturamento:" GridPane.rowIndex="1" />
                   <Label text="Endereço de Entrega:" GridPane.rowIndex="2" />
-                  <Label fx:id="enderecoFaturamentoLabel" text="Faturamento" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <Label fx:id="enderecoEntregaLabel" text="Entrega" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <Label fx:id="enderecoFaturamentoLabel" prefHeight="16.0" prefWidth="402.0" text="Faturamento" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <Label fx:id="enderecoEntregaLabel" prefHeight="16.0" prefWidth="413.0" text="Entrega" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                </children>
             </GridPane>
             <Separator />

@@ -19,10 +19,9 @@
                      </accelerator></MenuItem>
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" text="Editar">
+          <Menu mnemonicParsing="false" text="Exportar">
             <items>
-              <MenuItem mnemonicParsing="false" onAction="#handleImportarDados" text="Importar dados" />
-                  <MenuItem mnemonicParsing="false" onAction="#handleExportarDados" text="Exportar dados" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleExportarClientesDados" text="Exportar Clientes" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" onAction="#handleSobre" text="Ajuda">

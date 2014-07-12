@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package javafxlivraria.view;
 
 import java.text.DecimalFormat;
@@ -59,8 +54,8 @@ public class FinalizaCompraController {
     private ComboBox<String> parcelasCreditoComboBox;
 
     /**
-     * Initializes the controller class. This method is automatically called
-     * after the fxml file has been loaded.
+     * Inicializa a classe controller. Este método é chamado automaticamente
+     * após o arquivo FXML foi carregado.
      */
     @FXML
     private void initialize() {
@@ -94,7 +89,7 @@ public class FinalizaCompraController {
 
             @Override
             public Cliente fromString(String clienteString) {
-                return null; // No conversion fromString needed.
+                return null;
             }
         });
 
@@ -128,8 +123,8 @@ public class FinalizaCompraController {
     private void preencheDetalhesCliente(Cliente cliente) {
         if (cliente != null) {
             // Fill the labels with info from the person object.
-            enderecoFaturamentoLabel.setText(cliente.getEnderecoDeFaturamento().getCidade());
-            enderecoEntregaLabel.setText(cliente.getEnderecoDeEntrega().getCidade());
+            enderecoFaturamentoLabel.setText(cliente.getEnderecoDeFaturamento().toString());
+            enderecoEntregaLabel.setText(cliente.getEnderecoDeEntrega().toString());
         } else {
             // Person is null, remove all the text.
             enderecoFaturamentoLabel.setText("");
@@ -147,6 +142,9 @@ public class FinalizaCompraController {
         this.dialogStage = dialogStage;
     }
 
+    /**
+     * Chamado quando o usuário clica no botão "Cancelar Compra"
+     */
     @FXML
     private void handleCancelarCompra() {
         Action response = Dialogs.create()

@@ -1,7 +1,6 @@
 package javafxlivraria.view;
 
 import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -93,14 +92,14 @@ public class EscolheProdutosController {
     private TableColumn<ItemCarrinho, String> totalColunaCarrinho;
 
     /**
-     * The constructor. The constructor is called before the initialize()
-     * method.
+     * O construtor é chamado antes do metódo initialize()
      */
     public EscolheProdutosController() {
     }
 
     /**
-     * Is called by the main application to give a reference back to itself.
+     * É chamado pelo aplicativo principal para dar uma referência de volta para
+     * si mesmo.
      *
      * @param mainApp
      */
@@ -117,8 +116,8 @@ public class EscolheProdutosController {
     }
 
     /**
-     * Initializes the controller class. This method is automatically called
-     * after the fxml file has been loaded.
+     * Inicializa a classe controller. Este método é chamado automaticamente
+     * após o arquivo FXML foi carregado.
      */
     @FXML
     private void initialize() {
@@ -154,11 +153,11 @@ public class EscolheProdutosController {
 
             @Override
             public Filial fromString(String filialString) {
-                return null; // No conversion fromString needed.
+                return null;
             }
         });
 
-        // Handle ComboBox event.
+        // Manipula o evento ComboBox
         filialComboBox.setOnAction((event) -> {
             Filial selectedFilial = filialComboBox.getSelectionModel().getSelectedItem();
             showFilialDetails(selectedFilial);
@@ -166,7 +165,7 @@ public class EscolheProdutosController {
 
         });
 
-        // Initialize the table with the two columns.
+        // Inicia a tabela com três colunas
         tipoColunaItens.setCellValueFactory(
                 cellData -> {
                     SimpleStringProperty rotulo = new SimpleStringProperty();
@@ -180,14 +179,13 @@ public class EscolheProdutosController {
                     return rotulo;
                 }
         );
-        
+
         tituloColunaItens.setCellValueFactory(
                 cellData -> cellData.getValue().tituloProperty());
 
         estoqueColunaItens.setCellValueFactory(
                 cellData -> cellData.getValue().quantidadeProperty().asString());
 
-        // Listen for selection changes and show the person details when changed.
         tabelaItens.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue) -> mostrarDetalhesItem(newValue));
 
@@ -219,7 +217,7 @@ public class EscolheProdutosController {
     }
 
     private void preencheTabelaItens(Filial filial) {
-        // Add observable list data to the table
+        // Adiciona dados na lista de observáveis
         ObservableList<Item> lista = FXCollections.observableArrayList();
         lista.addAll(filial.getEstoque().getOversableListEstoqueDeItens());
         tabelaItens.setItems(lista);
@@ -227,7 +225,7 @@ public class EscolheProdutosController {
 
     private void mostrarDetalhesItem(Item item) {
         if (item != null) {
-            // Fill the labels with info from the item object.
+            // Preenche os labels com informações do item do objeto
             tituloLabel.setText(item.getTitulo());
             editoraLabel.setText(item.getEditora());
             edicaoLabel.setText(Integer.toString(item.getEdicao()));
@@ -243,7 +241,7 @@ public class EscolheProdutosController {
             precoLabel.setText(java.text.NumberFormat.getCurrencyInstance().format(item.getPreco()));
             quantidadeLabel.setText(item.getQuantidade().toString());
         } else {
-            // item is null, remove all the text.
+            // Se o item é nulo, remova todo o texto
             tituloLabel.setText("");
             editoraLabel.setText("");
             edicaoLabel.setText("");
@@ -259,18 +257,21 @@ public class EscolheProdutosController {
 
     private void showFilialDetails(Filial filial) {
         if (filial != null) {
-            // Fill the labels with info from the person object.
+            // Preenche os labels com as informações da Filial
             razaoSocialLabel.setText(filial.getRazaoSocial());
-            enderecoLabel.setText(filial.getEnderecoFisico().getCidade());
+            enderecoLabel.setText(filial.getEnderecoFisico().toString());
             gerenteLabel.setText(filial.getGerente().getNome());
         } else {
-            // Person is null, remove all the text.
+            // Se Filial é nula, remova todo o texto
             razaoSocialLabel.setText("");
             enderecoLabel.setText("");
             gerenteLabel.setText("");
         }
     }
 
+        /**
+     * Chamado quando o usuário clica no botão "Comprar Produto"
+     */
     @FXML
     private void handleComprarProduto() {
         Integer quantidadeSelecionada = Integer.parseInt(quantidadeField.getText());
@@ -291,28 +292,35 @@ public class EscolheProdutosController {
         System.out.println("Você apertou o Comprar Produto");
     }
 
+    /**
+     * Chamado quando o usuário clica no botão "Fechar Compra"
+     */
     @FXML
     private void handleFecharCompra() {
         if (tabelaCarrinho.getItems() == null) {
             System.out.println("Não tem nada aqui. :/");
         } else {
-            mainApp.mostrarFinarlizaCompra(tabelaItens.getItems(), tabelaCarrinho.getItems());
+            //mainApp.mostrarFinarlizaCompra(tabelaItens.getItems(), tabelaCarrinho.getItems());
+            mainApp.mostrarFinarlizaCompra(tabelaCarrinho.getItems());
             System.out.println("Você apertou o Fechar Compra");
         }
 
     }
 
+    /**
+     * Chamado quando o usuário clica no botão "Limpar Carrinho"
+     */
     @FXML
     private void handleLimparCarrinho() {
         tabelaCarrinho.getItems().clear();
         System.out.println("Você apertou o Limpar Carrinho");
     }
-    
-    public void atualizaEstoque(ObservableList<ItemCarrinho> carrinho){
-        for(ItemCarrinho itemCarrinho:carrinho){
-            for(Item item: tabelaItens.getItems()){
-                if(item.getTitulo().equalsIgnoreCase(itemCarrinho.getTitulo())){
-                    item.setQuantidade(item.getQuantidade()-itemCarrinho.getUnidades());
+
+    public void atualizaEstoque(ObservableList<ItemCarrinho> carrinho) {
+        for (ItemCarrinho itemCarrinho : carrinho) {
+            for (Item item : tabelaItens.getItems()) {
+                if (item.getTitulo().equalsIgnoreCase(itemCarrinho.getTitulo())) {
+                    item.setQuantidade(item.getQuantidade() - itemCarrinho.getUnidades());
                 }
             }
         }
