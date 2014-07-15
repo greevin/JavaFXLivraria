@@ -1,3 +1,5 @@
+/* Classe de exceção quando o estoque de um produto está esgotado */
+
 package casn.livrariafx.model.exception;
 
 public class EstoqueEsgotadoException extends Exception {

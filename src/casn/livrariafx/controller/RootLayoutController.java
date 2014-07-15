@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package casn.livrariafx.view;
+package casn.livrariafx.controller;
 
 import java.io.File;
 import javafx.stage.FileChooser;

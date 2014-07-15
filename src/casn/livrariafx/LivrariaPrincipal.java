@@ -1,3 +1,5 @@
+/* A classe LivrariaPrincipal cria uma biblioteca com os seus itens */
+
 package casn.livrariafx;
 
 import java.io.File;
@@ -23,9 +25,9 @@ import casn.livrariafx.model.Jornal;
 import casn.livrariafx.model.Livro;
 import casn.livrariafx.model.Revista;
 import casn.livrariafx.model.wrapper.ClienteListWrapper;
-import casn.livrariafx.view.EscolheProdutosController;
-import casn.livrariafx.view.FinalizaCompraController;
-import casn.livrariafx.view.RootLayoutController;
+import casn.livrariafx.controller.EscolheProdutosController;
+import casn.livrariafx.controller.FinalizaCompraController;
+import casn.livrariafx.controller.RootLayoutController;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
@@ -258,10 +260,9 @@ public class LivrariaPrincipal extends Application {
     }
 
     /**
-     * Sets the file path of the currently loaded file. The path is persisted in
-     * the OS specific registry.
+     * Define o caminho do arquivo atualmente carregado.
      *
-     * @param file the file or null to remove the path
+     * @param o arquivo "file" é o arquivo ou é null para remover o caminho
      */
     public void setPersonFilePath(File file) {
         Preferences prefs = Preferences.userNodeForPackage(LivrariaPrincipal.class);
@@ -317,7 +318,7 @@ public class LivrariaPrincipal extends Application {
 
             // Save the file path to the registry.
             setPersonFilePath(file);
-        } catch (Exception e) { // catches ANY exception
+        } catch (Exception e) { // captura qualquer exceção
             Dialogs.create().title("Error")
                     .masthead("Could not save data to file:\n" + file.getPath())
                     .showException(e);

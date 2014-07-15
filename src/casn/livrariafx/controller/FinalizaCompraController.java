@@ -1,4 +1,4 @@
-package casn.livrariafx.view;
+package casn.livrariafx.controller;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;

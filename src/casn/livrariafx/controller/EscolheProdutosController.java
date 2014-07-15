@@ -1,4 +1,4 @@
-package casn.livrariafx.view;
+package casn.livrariafx.controller;
 
 import java.util.logging.Logger;
 import javafx.beans.property.SimpleStringProperty;

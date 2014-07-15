@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+/* Classe de exceção quando o estoque de um produto está esgotado */
 
 package casn.livrariafx.model.exception;
 
@@ -13,17 +9,15 @@ package casn.livrariafx.model.exception;
 public class ItemNaoCadastradoException extends Exception {
 
     /**
-     * Creates a new instance of <code>ItemNaoCadastradoException</code> without
-     * detail message.
+     * Cria uma nova instancia de ItemNaoCadastradoException sem uma mensagem detalhada.
      */
     public ItemNaoCadastradoException() {
     }
 
     /**
-     * Constructs an instance of <code>ItemNaoCadastradoException</code> with
-     * the specified detail message.
-     *
-     * @param msg the detail message.
+     * Constrói uma instancia de ItemNaoCadastradoException com uma especifica mensagem detalhada.
+     * 
+     * @param msg a mensagem detalhada
      */
     public ItemNaoCadastradoException(String msg) {
         super(msg);
